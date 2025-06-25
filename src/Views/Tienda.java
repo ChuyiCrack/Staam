@@ -2,17 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
 
 /**
  *
  * @author chuyi
  */
 public class Tienda extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Tienda
-     */
     public Tienda() {
         initComponents();
     }

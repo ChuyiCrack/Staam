@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
 
 /**
  *
@@ -78,7 +78,6 @@ public class DevLogin extends javax.swing.JPanel {
         });
 
         LblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\irvin\\Downloads\\UPSIN Reception\\6th. Scene\\P.O.O\\STAAM.png")); // NOI18N
         LblIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LblIcon.setPreferredSize(new java.awt.Dimension(512, 512));
 

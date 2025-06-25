@@ -1,9 +1,14 @@
 package p.o.o.preliminardesign;
+import Views.*;
+
+
+
+
+
 
 public class POOPreliminarDesign {
 
     public static void main(String[] args) {
-        // TODO code application logic
+        windowCreator.openWindow("Login", 300, 400, new Login());
     }
-    
 }

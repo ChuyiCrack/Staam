@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
+
+import java.awt.Window;
+import javax.swing.SwingUtilities;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
@@ -33,9 +37,10 @@ public class UserFormat extends javax.swing.JPanel {
         Password = new javax.swing.JPasswordField();
         LblCPassword = new javax.swing.JLabel();
         CPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        createAccount = new javax.swing.JButton();
         LblUser1 = new javax.swing.JLabel();
         TxtUser1 = new javax.swing.JTextField();
+        backToLogin = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         LblIcon = new javax.swing.JLabel();
         LblTitle = new javax.swing.JLabel();
@@ -64,10 +69,11 @@ public class UserFormat extends javax.swing.JPanel {
 
         CPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("CreateAccount");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createAccount.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        createAccount.setText("Create Account");
+        createAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createAccountActionPerformed(evt);
             }
         });
 
@@ -81,44 +87,46 @@ public class UserFormat extends javax.swing.JPanel {
             }
         });
 
+        backToLogin.setBackground(new java.awt.Color(1, 44, 98));
+        backToLogin.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        backToLogin.setForeground(new java.awt.Color(255, 255, 255));
+        backToLogin.setText("Back to Login");
+        backToLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        backToLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(CPassword, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtUser1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(LblUser)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(42, 42, 42)
+                        .addComponent(createAccount))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LblUser1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(CPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LblCPassword))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LblPassword))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jButton1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addComponent(LblUser1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LblCPassword))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LblPassword))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(backToLogin))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LblUser)))
+                .addContainerGap(52, Short.MAX_VALUE))
+            .addComponent(TxtUser1)
+            .addComponent(Password)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,15 +147,15 @@ public class UserFormat extends javax.swing.JPanel {
                 .addComponent(LblCPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(createAccount)
+                .addGap(14, 14, 14)
+                .addComponent(backToLogin))
         );
 
         jPanel3.setBackground(new java.awt.Color(1, 44, 98));
 
         LblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\irvin\\Downloads\\UPSIN Reception\\6th. Scene\\P.O.O\\STAAM.png")); // NOI18N
         LblIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LblIcon.setPreferredSize(new java.awt.Dimension(512, 512));
 
@@ -160,7 +168,7 @@ public class UserFormat extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 204, Short.MAX_VALUE)
+            .addGap(0, 218, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -188,11 +196,13 @@ public class UserFormat extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100))
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +211,7 @@ public class UserFormat extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -209,13 +219,19 @@ public class UserFormat extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtUserActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createAccountActionPerformed
 
     private void TxtUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUser1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtUser1ActionPerformed
+
+    private void backToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToLoginActionPerformed
+        windowCreator.openWindow("Login", 300, 400, new Login());
+        Window window = SwingUtilities.getWindowAncestor(this);
+        window.dispose();
+    }//GEN-LAST:event_backToLoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -229,7 +245,8 @@ public class UserFormat extends javax.swing.JPanel {
     private javax.swing.JPasswordField Password;
     private javax.swing.JTextField TxtUser;
     private javax.swing.JTextField TxtUser1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton backToLogin;
+    private javax.swing.JButton createAccount;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables

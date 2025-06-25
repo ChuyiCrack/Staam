@@ -2,17 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
+
+import java.awt.Window;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
  * @author irvin
  */
 public class Login extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Login
-     */
     public Login() {
         initComponents();
     }
@@ -34,7 +35,7 @@ public class Login extends javax.swing.JPanel {
         BtnClose = new javax.swing.JButton();
         BtnLogin = new javax.swing.JButton();
         LblIcon = new javax.swing.JLabel();
-        BtnRecovery = new javax.swing.JButton();
+        createAccount = new javax.swing.JButton();
         BtnDevLog = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(1, 44, 98));
@@ -78,14 +79,18 @@ public class Login extends javax.swing.JPanel {
         });
 
         LblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\irvin\\Downloads\\UPSIN Reception\\6th. Scene\\P.O.O\\STAAM.png")); // NOI18N
         LblIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LblIcon.setPreferredSize(new java.awt.Dimension(512, 512));
 
-        BtnRecovery.setBackground(new java.awt.Color(1, 44, 98));
-        BtnRecovery.setForeground(new java.awt.Color(204, 204, 204));
-        BtnRecovery.setText("Forgot your password?");
-        BtnRecovery.setBorder(null);
+        createAccount.setBackground(new java.awt.Color(1, 44, 98));
+        createAccount.setForeground(new java.awt.Color(204, 204, 204));
+        createAccount.setText("Dont have an Account?");
+        createAccount.setBorder(null);
+        createAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createAccountActionPerformed(evt);
+            }
+        });
 
         BtnDevLog.setBackground(new java.awt.Color(1, 44, 98));
         BtnDevLog.setForeground(new java.awt.Color(204, 204, 204));
@@ -114,7 +119,7 @@ public class Login extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(BtnRecovery)
+                                .addComponent(createAccount)
                                 .addComponent(BtnDevLog))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnLogin))
@@ -148,11 +153,11 @@ public class Login extends javax.swing.JPanel {
                                     .addComponent(BtnDevLog)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BtnRecovery))))
+                                .addComponent(createAccount))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(LblTitle)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,25 +169,31 @@ public class Login extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnLoginMouseClicked
 
-    private void BtnDevLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDevLogActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnDevLogActionPerformed
-
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnLoginActionPerformed
+
+    private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
+        windowCreator.openWindow("Create Account", 300, 400, new UserFormat());
+        Window window = SwingUtilities.getWindowAncestor(this);
+        window.dispose();
+    }//GEN-LAST:event_createAccountActionPerformed
+
+    private void BtnDevLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDevLogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnDevLogActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClose;
     private javax.swing.JButton BtnDevLog;
     private javax.swing.JButton BtnLogin;
-    private javax.swing.JButton BtnRecovery;
     private javax.swing.JLabel LblIcon;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblTitle;
     private javax.swing.JLabel LblUser;
     private javax.swing.JPasswordField Password;
     private javax.swing.JTextField TxtUser;
+    private javax.swing.JButton createAccount;
     // End of variables declaration//GEN-END:variables
 }

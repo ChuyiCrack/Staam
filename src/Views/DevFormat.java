@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
 
 /**
  *
@@ -51,7 +51,6 @@ public class DevFormat extends javax.swing.JPanel {
         add(LblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 36, -1, -1));
 
         LblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\irvin\\Downloads\\UPSIN Reception\\6th. Scene\\P.O.O\\STAAM.png")); // NOI18N
         LblIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LblIcon.setPreferredSize(new java.awt.Dimension(512, 512));
         add(LblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 21, 65, 60));
@@ -123,7 +122,7 @@ public class DevFormat extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 144, -1, 235));
