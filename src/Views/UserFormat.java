@@ -3,9 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Views;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.awt.Window;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.windowCreator;
 
 /**
@@ -32,15 +38,15 @@ public class UserFormat extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         LblUser = new javax.swing.JLabel();
-        TxtUser = new javax.swing.JTextField();
         LblPassword = new javax.swing.JLabel();
-        Password = new javax.swing.JPasswordField();
-        LblCPassword = new javax.swing.JLabel();
-        CPassword = new javax.swing.JPasswordField();
         createAccount = new javax.swing.JButton();
         LblUser1 = new javax.swing.JLabel();
-        TxtUser1 = new javax.swing.JTextField();
         backToLogin = new javax.swing.JButton();
+        emailEntry = new javax.swing.JTextField();
+        usernameEntry = new javax.swing.JTextField();
+        password1 = new javax.swing.JTextField();
+        LblCPassword = new javax.swing.JLabel();
+        password2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         LblIcon = new javax.swing.JLabel();
         LblTitle = new javax.swing.JLabel();
@@ -52,22 +58,8 @@ public class UserFormat extends javax.swing.JPanel {
         LblUser.setForeground(new java.awt.Color(255, 255, 255));
         LblUser.setText("Email");
 
-        TxtUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        TxtUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtUserActionPerformed(evt);
-            }
-        });
-
         LblPassword.setForeground(new java.awt.Color(255, 255, 255));
         LblPassword.setText("Password");
-
-        Password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        LblCPassword.setForeground(new java.awt.Color(255, 255, 255));
-        LblCPassword.setText("Confirm your Password");
-
-        CPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         createAccount.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         createAccount.setText("Create Account");
@@ -80,13 +72,6 @@ public class UserFormat extends javax.swing.JPanel {
         LblUser1.setForeground(new java.awt.Color(255, 255, 255));
         LblUser1.setText("Name Account");
 
-        TxtUser1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        TxtUser1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtUser1ActionPerformed(evt);
-            }
-        });
-
         backToLogin.setBackground(new java.awt.Color(1, 44, 98));
         backToLogin.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         backToLogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -98,59 +83,88 @@ public class UserFormat extends javax.swing.JPanel {
             }
         });
 
+        emailEntry.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        emailEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailEntryActionPerformed(evt);
+            }
+        });
+
+        usernameEntry.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        usernameEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameEntryActionPerformed(evt);
+            }
+        });
+
+        password1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        password1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password1ActionPerformed(evt);
+            }
+        });
+
+        LblCPassword.setForeground(new java.awt.Color(255, 255, 255));
+        LblCPassword.setText("Confirm your Password");
+
+        password2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        password2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(CPassword, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailEntry, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(usernameEntry, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(password1)
+                    .addComponent(password2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(createAccount))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LblUser1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LblCPassword))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LblPassword))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(backToLogin))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LblUser)))
-                .addContainerGap(52, Short.MAX_VALUE))
-            .addComponent(TxtUser1)
-            .addComponent(Password)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(LblUser1))
+                            .addComponent(LblPassword)
+                            .addComponent(LblUser)
+                            .addComponent(LblCPassword)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(createAccount))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(backToLogin)))
+                        .addGap(0, 57, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LblUser1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(LblUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TxtUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(LblPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(LblCPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(createAccount)
-                .addGap(14, 14, 14)
-                .addComponent(backToLogin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backToLogin)
+                .addGap(77, 77, 77))
         );
 
         jPanel3.setBackground(new java.awt.Color(1, 44, 98));
@@ -168,26 +182,26 @@ public class UserFormat extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addComponent(LblTitle)
+                .addGap(21, 21, 21))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addComponent(LblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(LblTitle)
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addContainerGap(133, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addComponent(LblTitle)
+                .addGap(34, 34, 34))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(45, 45, 45)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(LblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LblTitle)))
+                    .addComponent(LblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -195,59 +209,116 @@ public class UserFormat extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(99, 99, 99)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(103, 103, 103))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtUserActionPerformed
-
-    private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_createAccountActionPerformed
-
-    private void TxtUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUser1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtUser1ActionPerformed
-
     private void backToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToLoginActionPerformed
-        windowCreator.openWindow("Login", 300, 400, new Login());
+        windowCreator.openWindow("Login", 400, 400, new Login());
         Window window = SwingUtilities.getWindowAncestor(this);
         window.dispose();
     }//GEN-LAST:event_backToLoginActionPerformed
 
+    private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
+        String Username , email, Password1 , Password2 ;
+        Username = usernameEntry.getText();
+        email = emailEntry.getText();
+        Password1 = password1.getText();
+        Password2 = password2.getText();
+        
+        if("".equals(Username) || "".equals(email) || "".equals(Password1)  || "".equals(Password2) ){
+            JOptionPane.showMessageDialog(null , "You are missing some input, Very what you've written" );
+        }
+        else{
+                String query = "SELECT * FROM Usuarios where Username = ? OR Email= ? ";
+                PreparedStatement stmt;
+                try{
+                        Connection conn = Database.getConnection();
+                        stmt = conn.prepareStatement(query);
+                        stmt.setString(1, Username);
+                        stmt.setString(2, email);
+                        ResultSet rs = stmt.executeQuery();
+                        if(rs.next()){
+                             if(rs.getString("Username").equals(Username)){
+                                  JOptionPane.showMessageDialog(null , "The user "+Username + " already exists" );
+                             }
+                             else{
+                                  JOptionPane.showMessageDialog(null , "The email "+email+ " has already been used" );
+                             }
+                        }
+                        else{
+                            if(Password1.equals(Password2)){
+                                query = "INSERT INTO Usuarios(Username ,Email , password_hash) VALUES(?,?,?)";
+                                stmt = conn.prepareStatement(query);
+                                stmt.setString(1, Username);
+                                stmt.setString(2, email);
+                                stmt.setString(3, Database.hashPasswords(Password1));
+                                stmt.executeUpdate();
+                                Window window = SwingUtilities.getWindowAncestor(this);
+                                window.dispose();
+                                JFrame ventana = new Tienda();
+                                ventana.setVisible(true);
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null , "The passwords doesn't match" );
+                            }
+                        }
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                
+                
+        }
+    }//GEN-LAST:event_createAccountActionPerformed
+
+    private void usernameEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameEntryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameEntryActionPerformed
+
+    private void emailEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailEntryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailEntryActionPerformed
+
+    private void password1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password1ActionPerformed
+
+    private void password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField CPassword;
     private javax.swing.JLabel LblCPassword;
     private javax.swing.JLabel LblIcon;
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblTitle;
     private javax.swing.JLabel LblUser;
     private javax.swing.JLabel LblUser1;
-    private javax.swing.JPasswordField Password;
-    private javax.swing.JTextField TxtUser;
-    private javax.swing.JTextField TxtUser1;
     private javax.swing.JButton backToLogin;
     private javax.swing.JButton createAccount;
+    private javax.swing.JTextField emailEntry;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField password1;
+    private javax.swing.JTextField password2;
+    private javax.swing.JTextField usernameEntry;
     // End of variables declaration//GEN-END:variables
 }

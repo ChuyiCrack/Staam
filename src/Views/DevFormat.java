@@ -3,16 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Views;
-
+import java.awt.Image;
+import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import p.o.o.preliminardesign.Database;
 /**
  *
  * @author irvin
  */
 public class DevFormat extends javax.swing.JPanel {
-
-    /**
-     * Creates new form DevFormat
-     */
+    File imageFile = null;
     public DevFormat() {
         initComponents();
     }
@@ -28,18 +36,25 @@ public class DevFormat extends javax.swing.JPanel {
 
         LblTitle = new javax.swing.JLabel();
         LblIcon = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         LblUser = new javax.swing.JLabel();
-        TxtUser = new javax.swing.JTextField();
+        publisherName = new javax.swing.JTextField();
         LblPassword = new javax.swing.JLabel();
-        Password = new javax.swing.JPasswordField();
         LblCPassword = new javax.swing.JLabel();
-        CPassword = new javax.swing.JPasswordField();
+        password1 = new javax.swing.JPasswordField();
         LblHName = new javax.swing.JLabel();
-        TxtHName = new javax.swing.JTextField();
+        password2 = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         LblHIcon = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        logoPublisher = new javax.swing.JFileChooser();
+        previewLogo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Description = new javax.swing.JTextArea();
+        LblUser1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        Location = new javax.swing.JTextField();
+        CreatePublisher = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(1, 44, 98));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,101 +63,258 @@ public class DevFormat extends javax.swing.JPanel {
         LblTitle.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         LblTitle.setForeground(new java.awt.Color(255, 255, 255));
         LblTitle.setText("STAAM");
-        add(LblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 36, -1, -1));
+        add(LblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
 
         LblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LblIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LblIcon.setPreferredSize(new java.awt.Dimension(512, 512));
-        add(LblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 21, 65, 60));
+        add(LblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 65, 60));
 
+        jPanel1.setBackground(new java.awt.Color(1, 44, 98));
+
+        LblUser.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
         LblUser.setForeground(new java.awt.Color(255, 255, 255));
         LblUser.setText("Publishing House Name");
-        add(LblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 116, -1, -1));
 
-        TxtUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        TxtUser.addActionListener(new java.awt.event.ActionListener() {
+        publisherName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        publisherName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtUserActionPerformed(evt);
+                publisherNameActionPerformed(evt);
             }
         });
-        add(TxtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 144, 200, -1));
 
+        LblPassword.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
         LblPassword.setForeground(new java.awt.Color(255, 255, 255));
         LblPassword.setText("Email");
-        add(LblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 174, -1, -1));
 
-        Password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 202, 200, -1));
-
+        LblCPassword.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
         LblCPassword.setForeground(new java.awt.Color(255, 255, 255));
         LblCPassword.setText("Password");
-        add(LblCPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 232, -1, -1));
 
-        CPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(CPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 260, 200, -1));
+        password1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        LblHName.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
         LblHName.setForeground(new java.awt.Color(255, 255, 255));
         LblHName.setText("Confirm Password");
-        add(LblHName, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 290, -1, -1));
 
-        TxtHName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        TxtHName.addActionListener(new java.awt.event.ActionListener() {
+        password2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        password2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtHNameActionPerformed(evt);
+                password2ActionPerformed(evt);
             }
         });
-        add(TxtHName, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 320, 200, -1));
 
+        email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
+
+        LblHIcon.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
         LblHIcon.setForeground(new java.awt.Color(255, 255, 255));
-        LblHIcon.setText("Publishing House logo");
-        add(LblHIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 116, -1, -1));
+        LblHIcon.setText("Logo Preview");
 
-        jButton1.setText("CreateAccount");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LblUser)
+                            .addComponent(publisherName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LblPassword)
+                            .addComponent(LblCPassword)
+                            .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LblHName)
+                            .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(LblHIcon)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(LblUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(publisherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LblPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LblCPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LblHName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LblHIcon)
+                .addGap(24, 24, 24))
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 230, 270));
+
+        logoPublisher.setDialogTitle("");
+        logoPublisher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                logoPublisherActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 356, -1, -1));
+        add(logoPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 370, 250));
 
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Insert here your logo");
+        previewLogo.setIcon(new javax.swing.ImageIcon("/home/chuyi/Downloads/white-circle-round-question-mark(1).png")); // NOI18N
+        previewLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        add(previewLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 100, 100));
+
+        jPanel2.setBackground(new java.awt.Color(1, 44, 98));
+
+        Description.setColumns(20);
+        Description.setRows(5);
+        jScrollPane1.setViewportView(Description);
+
+        LblUser1.setFont(new java.awt.Font("Adwaita Sans", 0, 14)); // NOI18N
+        LblUser1.setForeground(new java.awt.Color(255, 255, 255));
+        LblUser1.setText("Publisher Description");
+
+        jLabel1.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        jLabel1.setText("Location");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(60, 60, 60))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblUser1)
+                    .addComponent(jLabel1)
+                    .addComponent(Location, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addContainerGap()
+                .addComponent(LblUser1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 144, -1, 235));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 300, 250));
+
+        CreatePublisher.setFont(new java.awt.Font("Adwaita Sans", 1, 24)); // NOI18N
+        CreatePublisher.setText("CreateAccount");
+        CreatePublisher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreatePublisherActionPerformed(evt);
+            }
+        });
+        add(CreatePublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 270, 50));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUserActionPerformed
+    private void publisherNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtUserActionPerformed
+    }//GEN-LAST:event_publisherNameActionPerformed
 
-    private void TxtHNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtHNameActionPerformed
+    private void password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtHNameActionPerformed
+    }//GEN-LAST:event_password2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CreatePublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreatePublisherActionPerformed
+        JOptionPane.showMessageDialog(null , this.imageFile);
+        String PublisherName, Email , Password1 , Password2,Ubication , publisherDescription;
+        PublisherName = publisherName.getText();
+        Email = email.getText();
+        Password1 = password1.getText();
+        Password2 = password2.getText();
+        Ubication = Location.getText();
+        publisherDescription = Description.getText();
+        if("".equals(PublisherName) || "".equals(Email) || "".equals(Password1)  || "".equals(Password2) || imageFile == null || "".equals(Ubication) || "".equals(publisherDescription)){
+                JOptionPane.showMessageDialog(null , "You are missing some input, Verify what you've written" );
+        }
+        else{
+                String query1 = "SELECT * FROM Usuarios where Email= ? ";
+                String query2 = "SELECT * FROM Publisher  where Nombre =?  OR Email = ? ";
+                PreparedStatement stmt1 , stmt2;
+               
+                try{
+                        Connection conn = Database.getConnection();
+                         stmt1 = conn.prepareStatement(query1);
+                         stmt1.setString(1,Email);
+                         stmt2 = conn.prepareStatement(query2);
+                         stmt2.setString(1,PublisherName);
+                         stmt2.setString(2,Email);
+                         ResultSet rs1 = stmt1.executeQuery() , rs2 = stmt2.executeQuery();
+                         if(rs1.next()|| rs2.next()){
+                                JOptionPane.showMessageDialog(null , "The mail or the Publisher Name was already Taken" );
+                             
+                         }
+                         else{
+                             if(Password1.equals(Password2)){
+                                 String query = "Insert into Publisher(Nombre , Email , password_hash , Ubicacion , Descripcion , Imagen) VALUES(?,?,?,?,?,?)";
+                                 FileInputStream fis = new FileInputStream(imageFile);
+                                 byte[] imageBytes = fis.readAllBytes();
+                                 stmt1 = conn.prepareStatement(query);
+                                 stmt1.setString(1,PublisherName);
+                                 stmt1.setString(2,Email);
+                                 stmt1.setString(3,Database.hashPasswords(Password1));
+                                 stmt1.setString(4,Ubication);
+                                 stmt1.setString(5,publisherDescription);
+                                 stmt1.setBinaryStream(6, fis, (int) imageFile.length());
+                                 stmt1.executeUpdate();
+                                 fis.close();
+                                 
+                             }
+                             else{
+                                 JOptionPane.showMessageDialog(null , "The paswwords doesnt match" );
+                             }
+                         }
+                        
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException ex) {
+                System.getLogger(DevFormat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (IOException ex) {
+                System.getLogger(DevFormat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+             
+        }
+        //JOptionPane.showMessageDialog(null , previewLogo.getWidth() + " " + previewLogo.getHeight());
+    }//GEN-LAST:event_CreatePublisherActionPerformed
+
+    private void logoPublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoPublisherActionPerformed
+        File file = logoPublisher.getSelectedFile();
+        this.imageFile = file;
+        String imagePath = file.getAbsolutePath();
+        ImageIcon logoPublisherIcon = new ImageIcon(imagePath);
+        Image image = logoPublisherIcon.getImage().getScaledInstance(previewLogo.getWidth(), previewLogo.getHeight(), Image.SCALE_SMOOTH);
+        previewLogo.setIcon(new ImageIcon(image));
+    }//GEN-LAST:event_logoPublisherActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField CPassword;
+    private javax.swing.JButton CreatePublisher;
+    private javax.swing.JTextArea Description;
     private javax.swing.JLabel LblCPassword;
     private javax.swing.JLabel LblHIcon;
     private javax.swing.JLabel LblHName;
@@ -150,11 +322,17 @@ public class DevFormat extends javax.swing.JPanel {
     private javax.swing.JLabel LblPassword;
     private javax.swing.JLabel LblTitle;
     private javax.swing.JLabel LblUser;
-    private javax.swing.JPasswordField Password;
-    private javax.swing.JTextField TxtHName;
-    private javax.swing.JTextField TxtUser;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel LblUser1;
+    private javax.swing.JTextField Location;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JFileChooser logoPublisher;
+    private javax.swing.JPasswordField password1;
+    private javax.swing.JTextField password2;
+    private javax.swing.JLabel previewLogo;
+    private javax.swing.JTextField publisherName;
     // End of variables declaration//GEN-END:variables
 }

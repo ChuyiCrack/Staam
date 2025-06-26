@@ -2,6 +2,7 @@ package p.o.o.preliminardesign;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Database{
     private static final String URL = "jdbc:mysql://localhost:3306/Staam";
@@ -10,5 +11,14 @@ public class Database{
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+    
+    public static String hashPasswords(String Password){
+        return BCrypt.hashpw(Password, BCrypt.gensalt());
+    }
+     
+    //Toma la contrasena sin hash, la hashea  y la compara con el hash para saber si son iguales.
+    public static boolean checkPassword(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }
