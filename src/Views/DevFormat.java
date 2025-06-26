@@ -6,9 +6,9 @@ package Views;
 import java.awt.Image;
 import javax.swing.JOptionPane;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -267,27 +267,25 @@ public class DevFormat extends javax.swing.JPanel {
                          else{
                              if(Password1.equals(Password2)){
                                  String query = "Insert into Publisher(Nombre , Email , password_hash , Ubicacion , Descripcion , Imagen) VALUES(?,?,?,?,?,?)";
-                                 FileInputStream fis = new FileInputStream(imageFile);
-                                 byte[] imageBytes = fis.readAllBytes();
                                  stmt1 = conn.prepareStatement(query);
                                  stmt1.setString(1,PublisherName);
                                  stmt1.setString(2,Email);
                                  stmt1.setString(3,Database.hashPasswords(Password1));
                                  stmt1.setString(4,Ubication);
                                  stmt1.setString(5,publisherDescription);
-                                 stmt1.setBinaryStream(6, fis, (int) imageFile.length());
+                                 byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+                                 stmt1.setBytes(6, imageBytes);
                                  stmt1.executeUpdate();
-                                 fis.close();
                                  
                              }
                              else{
-                                 JOptionPane.showMessageDialog(null , "The paswwords doesnt match" );
+                                 JOptionPane.showMessageDialog(null , "The passwords doesnt match" );
                              }
                          }
                         
                 }
                 catch (SQLException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null , "Error: " + e );
                 } catch (FileNotFoundException ex) {
                 System.getLogger(DevFormat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             } catch (IOException ex) {
