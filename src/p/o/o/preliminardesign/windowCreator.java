@@ -24,4 +24,10 @@ public class windowCreator {
             frame.setResizable(false);
         });
     }
+    
+    public static void openJframeWindow(JFrame window , String title){
+        window.setVisible(true);
+        window.setResizable(false);
+        window.setTitle(title);  
+    }
 }

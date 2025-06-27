@@ -265,7 +265,7 @@ public class DevFormat extends javax.swing.JPanel {
     }//GEN-LAST:event_publisherNameActionPerformed
 
     private void CreatePublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreatePublisherActionPerformed
-        JOptionPane.showMessageDialog(null , this.imageFile);
+
         String PublisherName, Email , Password1 , Password2,Ubication , publisherDescription;
         PublisherName = publisherName.getText();
         Email = email.getText();

@@ -193,6 +193,7 @@ public class DevLogin extends javax.swing.JPanel {
                 }
                 if(!Database.checkPassword(Password ,  rs.getString("password_hash"))){
                     JOptionPane.showMessageDialog(null , "Password Incorrect");
+                    return;
                 }
                 Publisher currPublisher = new Publisher(rs.getInt("ID"),rs.getString("Email"),rs.getString("Nombre"), rs.getString("Ubicacion"),rs.getDate("FechaCreacion").toString(),rs.getString("Descripcion"));
                 SessionManager.login(currPublisher);
