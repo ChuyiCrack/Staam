@@ -21,6 +21,7 @@ public class windowCreator {
             frame.setLocationRelativeTo(null);
             frame.setContentPane(panel);
             frame.setVisible(true);
+            frame.setResizable(false);
         });
     }
 }

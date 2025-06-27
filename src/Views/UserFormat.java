@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import p.o.o.preliminardesign.Database;
+import p.o.o.preliminardesign.GlobalUser;
+import p.o.o.preliminardesign.SessionManager;
+import p.o.o.preliminardesign.User;
 import p.o.o.preliminardesign.windowCreator;
 
 /**
@@ -237,13 +240,19 @@ public class UserFormat extends javax.swing.JPanel {
 
     private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
         String Username , email, Password1 , Password2 ;
-        Username = usernameEntry.getText();
+        Username = usernameEntry.getText().toLowerCase();
         email = emailEntry.getText();
         Password1 = password1.getText();
         Password2 = password2.getText();
         
         if("".equals(Username) || "".equals(email) || "".equals(Password1)  || "".equals(Password2) ){
             JOptionPane.showMessageDialog(null , "You are missing some input, Very what you've written" );
+        }
+        else if(!Database.checkEmail(email)){
+            JOptionPane.showMessageDialog(null , "The email " + email + " is not Valid");
+        }
+        else if(!Database.checkValidUsername(Username)){
+            JOptionPane.showMessageDialog(null , "User contains invalid characters" );
         }
         else{
                 String query = "SELECT * FROM Usuarios where Username = ? OR Email= ? ";
@@ -255,7 +264,7 @@ public class UserFormat extends javax.swing.JPanel {
                         stmt.setString(2, email);
                         ResultSet rs = stmt.executeQuery();
                         if(rs.next()){
-                             if(rs.getString("Username").equals(Username)){
+                             if(rs.getString("Username").toLowerCase().equals(Username)){
                                   JOptionPane.showMessageDialog(null , "The user "+Username + " already exists" );
                              }
                              else{
@@ -270,6 +279,13 @@ public class UserFormat extends javax.swing.JPanel {
                                 stmt.setString(2, email);
                                 stmt.setString(3, Database.hashPasswords(Password1));
                                 stmt.executeUpdate();
+                                query = "SELECT * FROM Usuarios WHERE Email = ?";
+                                stmt = conn.prepareStatement(query);
+                                stmt.setString(1, email);
+                                rs = stmt.executeQuery();
+                                rs.next();
+                                GlobalUser currUser = new User(rs.getInt("ID") , rs.getString("Email") , rs.getString("Username") , rs.getDouble("Balance") , rs.getDate("FechaCreacion").toString() , rs.getString("Ubicacion") , rs.getString("Telefono"));
+                                SessionManager.login(currUser );
                                 Window window = SwingUtilities.getWindowAncestor(this);
                                 window.dispose();
                                 JFrame ventana = new Tienda();

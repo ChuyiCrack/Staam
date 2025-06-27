@@ -21,4 +21,11 @@ public class Database{
     public static boolean checkPassword(String plainPassword, String hashedPassword) {
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
-}
+    
+    public static boolean checkEmail(String email){
+        return (email.contains("@") && email.contains("."));
+    }
+    
+    public static boolean checkValidUsername(String user){
+        return (!(user.contains("@") || user.contains(".")));
+    }}

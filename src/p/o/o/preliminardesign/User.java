@@ -5,10 +5,10 @@ public class User extends GlobalUser{
     double Balance;
     String Telefono;
     
-    public User(int ID, String Email, String Name,double Balance , String FechaCreacion , String Ubicacion , String Telefono) {
-        super(ID, Email, Name , Ubicacion);
+    public User(int ID, String Email, String Name,double Balance , String FechaCreacion , String Ubicacion , String Telefono){
+        super(ID, Email, Name , Ubicacion,FechaCreacion);
+        this.Type = "User";
         this.Balance = Balance;
-        this.FechaCreacion = FechaCreacion;
         this.Telefono = Telefono;
     }
     

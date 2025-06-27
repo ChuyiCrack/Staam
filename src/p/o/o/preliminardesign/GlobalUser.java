@@ -3,14 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package p.o.o.preliminardesign;
-public class GlobalUser {
+public abstract class GlobalUser{
         int ID;
         String Email;
         String Name;
         String Ubicacion;
         String FechaCreacion;
+        String Type;
                 
-         public GlobalUser(int ID , String Email , String Name , String Ubicacion){
+         public GlobalUser(int ID , String Email , String Name , String Ubicacion,String FechaCreacion){
              this.ID = ID;
              this.Email= Email;
              this.Name = Name;
