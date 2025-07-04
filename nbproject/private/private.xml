@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/chuyi/NetBeansProjects/P.O.O%20-%20PreliminarDesign/src/p/o/o/preliminardesign/POOPreliminarDesign.java</file>
-            <file>file:/home/chuyi/NetBeansProjects/P.O.O%20-%20PreliminarDesign/src/Views/mainViewPublisher.java</file>
-            <file>file:/home/chuyi/NetBeansProjects/P.O.O%20-%20PreliminarDesign/src/Views/Login.java</file>
-            <file>file:/home/chuyi/NetBeansProjects/P.O.O%20-%20PreliminarDesign/src/Views/UserFormat.java</file>
-            <file>file:/home/chuyi/NetBeansProjects/P.O.O%20-%20PreliminarDesign/src/p/o/o/preliminardesign/User.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/Views/DevFormat.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/p/o/o/preliminardesign/Database.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/p/o/o/preliminardesign/POOPreliminarDesign.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/Views/mainViewPublisher.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/Views/DevLogin.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/Views/Login.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/Views/submitGame.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/p/o/o/preliminardesign/SessionManager.java</file>
+            <file>file:/home/chuyi/Documents/Java%20Projects/Staam/src/p/o/o/preliminardesign/GlobalUser.java</file>
         </group>
     </open-files>
 </project-private>

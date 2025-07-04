@@ -2,6 +2,7 @@
 package Views;
 
 import java.awt.Image;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.Game;
 import p.o.o.preliminardesign.Publisher;
@@ -362,13 +364,13 @@ public class mainViewPublisher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitGameActionPerformed
-        this.setVisible(false);
-        windowCreator.openJframeWindow(new submitGame(this) , "Submit a Game");
+        this.dispose();
+        windowCreator.openJframeWindow(new submitGame() , "Submit a Game");
     }//GEN-LAST:event_submitGameActionPerformed
 
     private void myGamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myGamesActionPerformed
         String Selected =(String)  myGames.getSelectedItem();
-                if(Selected == "Select a Game"){
+            if(Selected.equals("Select a Game")){
              insidePanel.setVisible(false);
             }
         else{

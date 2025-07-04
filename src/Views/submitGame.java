@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.SessionManager;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
@@ -23,7 +24,6 @@ import p.o.o.preliminardesign.SessionManager;
  */
 public class submitGame extends javax.swing.JFrame {
     File imageFile = null;
-    mainViewPublisher previousWindow;
     Random random = new Random();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(submitGame.class.getName());
 
@@ -31,16 +31,10 @@ public class submitGame extends javax.swing.JFrame {
      * Creates new form submitGame
      * @param previousWindow
      */
-    public submitGame(mainViewPublisher previousWindow) {
+    public submitGame() {
         initComponents();
-        this.previousWindow = previousWindow;
         
     }
-    
-    public submitGame() {
-        initComponents();        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -377,6 +371,7 @@ public class submitGame extends javax.swing.JFrame {
                 byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
                 stmt.setString(1 , Name);
                 stmt.setDouble(2 , price);
+                SessionManager.getCurrentUser().getID();
                 stmt.setString(3 , Description );
                 stmt.setInt(4 , SessionManager.getCurrentUser().getID());
                 stmt.setBytes(5 ,imageBytes);
@@ -385,8 +380,8 @@ public class submitGame extends javax.swing.JFrame {
                 stmt.setString(8 , GPU);
                 stmt.setInt(9, diskSpace );
                 stmt.executeUpdate();
-                 JOptionPane.showMessageDialog(null , "The game " + Name + " was created succesfully" );
-                 this.previousWindow.setVisible(true);
+                JOptionPane.showMessageDialog(null , "The game " + Name + " was created succesfully" );
+                windowCreator.openJframeWindow(new mainViewPublisher(), "Submit a Game");
         }
         catch (SQLException e) {
              JOptionPane.showMessageDialog(null , "Error with SQL: " + e );
@@ -406,7 +401,8 @@ public class submitGame extends javax.swing.JFrame {
     }//GEN-LAST:event_selectedCoverActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        this.previousWindow.setVisible(true);
+        windowCreator.openJframeWindow(new mainViewPublisher(), "Dashboard " + SessionManager.getCurrentUser().getName());
+        
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
