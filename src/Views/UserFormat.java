@@ -284,7 +284,7 @@ public class UserFormat extends javax.swing.JPanel {
                                 stmt.setString(1, email);
                                 rs = stmt.executeQuery();
                                 rs.next();
-                                GlobalUser currUser = new User(rs.getInt("ID") , rs.getString("Email") , rs.getString("Username") , rs.getDouble("Balance") , rs.getDate("FechaCreacion").toString() , rs.getString("Ubicacion") , rs.getString("Telefono"));
+                                GlobalUser currUser = new User(rs.getInt("ID") , rs.getString("Email") , rs.getString("Username") , rs.getDouble("Balance") , rs.getDate("FechaCreacion").toString() , rs.getString("Ubicacion") , rs.getString("Telefono") , null);
                                 SessionManager.login(currUser );
                                 Window window = SwingUtilities.getWindowAncestor(this);
                                 window.dispose();
