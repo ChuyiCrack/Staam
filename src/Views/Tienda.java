@@ -7,12 +7,21 @@ package Views;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import p.o.o.preliminardesign.Game;
 import p.o.o.preliminardesign.GamePanel;
+import p.o.o.preliminardesign.SessionManager;
+import p.o.o.preliminardesign.User;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
@@ -23,6 +32,11 @@ public class Tienda extends javax.swing.JFrame {
         initComponents();
         JPanel gamesContainer = new JPanel();
         gamesContainer.setLayout(new GridLayout(0, 1, 10, 10));
+        User currUser = (User) SessionManager.getCurrentUser();
+        Image imageProfile = currUser.getProfilePicture().getImage().getScaledInstance( profilePicture.getWidth(),  profilePicture.getHeight(), Image.SCALE_SMOOTH);
+        profilePicture.setIcon(new ImageIcon(imageProfile));
+        userName.setText(currUser.getName());
+        userFounds.setText("$"+currUser.getBalance());
         ArrayList<Game > games = Game.getAllGames();
         for(Game game : games){
             GamePanel gamePanel = new GamePanel(game);
@@ -41,9 +55,48 @@ public class Tienda extends javax.swing.JFrame {
         // Add scrollPane to your frame or panel
         gamePanelPlaceholder.setLayout(new GridLayout());
         gamePanelPlaceholder.add(scrollPane);
+        
+        //All of here contains about the right click in profile section
+        
+        // Create the popup menu
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem addFunds = new JMenuItem("Add funds");
+         JMenuItem openWindowItem2 = new JMenuItem("View my profile");
 
-        this.revalidate();
-        this.repaint();
+        popupMenu.add(addFunds);
+        popupMenu.add(openWindowItem2);
+
+        // Add actions
+        addFunds.addActionListener(e -> {
+            this.dispose();
+            windowCreator.openJframeWindow(new addFunds() , "Add Funds");
+        });
+        
+        openWindowItem2.addActionListener(e -> {
+
+        });
+
+        // Add mouse listener to show popup on right-click
+        userBox.addMouseListener(new MouseAdapter() {
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {  // Right-click on all platforms
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+        });
+
+//        this.revalidate();
+//        this.repaint();
     }
 
     /**
@@ -60,17 +113,28 @@ public class Tienda extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         gamePanelPlaceholder = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        userBox = new javax.swing.JPanel();
+        profilePicture = new javax.swing.JLabel();
+        userName = new javax.swing.JLabel();
+        userFounds = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(1, 44, 98));
 
-        jLabel2.setText("FIltrar por:");
+        jPanel1.setBackground(new java.awt.Color(1, 44, 98));
+        jPanel1.setForeground(new java.awt.Color(1, 44, 98));
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
-        jLabel1.setText("Games Store");
+        jLabel2.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Filter BY");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Precio", "Rating", "Mas Populares" }));
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Store");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PrICE", "Rating", "Most Populars" }));
+
+        gamePanelPlaceholder.setBackground(new java.awt.Color(1, 44, 98));
 
         javax.swing.GroupLayout gamePanelPlaceholderLayout = new javax.swing.GroupLayout(gamePanelPlaceholder);
         gamePanelPlaceholder.setLayout(gamePanelPlaceholderLayout);
@@ -83,43 +147,76 @@ public class Tienda extends javax.swing.JFrame {
             .addGap(0, 208, Short.MAX_VALUE)
         );
 
-        jLabel3.setText("jLabel3");
+        userBox.setBackground(new java.awt.Color(1, 36, 66));
+        userBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        userName.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        userName.setForeground(new java.awt.Color(255, 255, 255));
+        userName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        userFounds.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        userFounds.setForeground(new java.awt.Color(255, 255, 255));
+        userFounds.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userFounds.setText(" ");
+
+        javax.swing.GroupLayout userBoxLayout = new javax.swing.GroupLayout(userBox);
+        userBox.setLayout(userBoxLayout);
+        userBoxLayout.setHorizontalGroup(
+            userBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(profilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userFounds, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        userBoxLayout.setVerticalGroup(
+            userBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(userBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userFounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(profilePicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(49, 49, 49))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(52, 52, 52)
                 .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
@@ -179,7 +276,10 @@ public class Tienda extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel profilePicture;
+    private javax.swing.JPanel userBox;
+    private javax.swing.JLabel userFounds;
+    private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
 }

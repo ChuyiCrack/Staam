@@ -17,6 +17,7 @@ public class GamePanel extends JPanel{
             ImageIcon icon = new ImageIcon(game.getImage());
             JLabel gameImage = new JLabel("");
            JButton viewGame = new JButton("View Game");
+           viewGame.setPreferredSize(new Dimension(100, 30));
             Image image = icon.getImage().getScaledInstance(100  ,100, Image.SCALE_SMOOTH);
             gameImage.setIcon(new ImageIcon(image));
             JLabel titleLabel = new JLabel(game.Name);

@@ -13,6 +13,7 @@ import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.windowCreator;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import p.o.o.preliminardesign.SessionManager;
 import p.o.o.preliminardesign.*;
@@ -228,7 +229,9 @@ public class Login extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null , "Incorrect password");
                         return;
                     }
-
+                    byte[] imageBytes = rs.getBytes("fotoPerfil");
+                    
+                    ImageIcon profilePictureIcon =  (imageBytes != null && imageBytes.length > 0) ? new ImageIcon(imageBytes) : new ImageIcon(Database.getPathDefaultProfileUserImage());
                     GlobalUser currUser = new User(
                         rs.getInt("ID"),
                         rs.getString("Email"),
@@ -236,7 +239,8 @@ public class Login extends javax.swing.JPanel {
                         rs.getDouble("Balance"),
                         rs.getDate("FechaCreacion").toString(),
                         rs.getString("Ubicacion"),
-                        rs.getString("Telefono")
+                        rs.getString("Telefono"),
+                        profilePictureIcon 
                     );
 
                     SessionManager.login(currUser);
