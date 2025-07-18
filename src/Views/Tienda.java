@@ -39,7 +39,7 @@ public class Tienda extends javax.swing.JFrame {
         userFounds.setText("$"+currUser.getBalance());
         ArrayList<Game > games = Game.getAllGames();
         for(Game game : games){
-            GamePanel gamePanel = new GamePanel(game);
+            GamePanel gamePanel = new GamePanel(this,game);
             gamesContainer.add(gamePanel);
         }
        gamesContainer.setPreferredSize(new Dimension(500, 150 * games.size()));
@@ -61,10 +61,13 @@ public class Tienda extends javax.swing.JFrame {
         // Create the popup menu
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem addFunds = new JMenuItem("Add funds");
-         JMenuItem openWindowItem2 = new JMenuItem("View my profile");
+        JMenuItem openWindowItem2 = new JMenuItem("View my profile");
+        JMenuItem viewCart = new JMenuItem("View my Cart");
+         
 
         popupMenu.add(addFunds);
         popupMenu.add(openWindowItem2);
+        popupMenu.add(viewCart);
 
         // Add actions
         addFunds.addActionListener(e -> {
@@ -74,6 +77,11 @@ public class Tienda extends javax.swing.JFrame {
         
         openWindowItem2.addActionListener(e -> {
 
+        });
+        
+        viewCart.addActionListener(e -> {
+            this.dispose();
+            windowCreator.openJframeWindow(new Carrito() , "Cart");
         });
 
         // Add mouse listener to show popup on right-click
@@ -132,7 +140,7 @@ public class Tienda extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Store");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PrICE", "Rating", "Most Populars" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price", "Rating", "Most Populars" }));
 
         gamePanelPlaceholder.setBackground(new java.awt.Color(1, 44, 98));
 
@@ -165,11 +173,11 @@ public class Tienda extends javax.swing.JFrame {
             userBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userBoxLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(profilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(profilePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userFounds, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userFounds, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         userBoxLayout.setVerticalGroup(

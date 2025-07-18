@@ -36,16 +36,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
             if(!rs.next()){
                 return;
             }
-            byte[] imageBytes = rs.getBytes("imagen");
-            if (imageBytes != null && imageBytes.length > 0) {
-                ImageIcon icon = new ImageIcon(imageBytes);
-                Image image = icon.getImage().getScaledInstance(logoPublisher.getWidth(), logoPublisher.getHeight(), Image.SCALE_SMOOTH);
-                logoPublisher.setIcon(new ImageIcon(image));
-            }
-            else{
-                 JOptionPane.showMessageDialog(null , "Error loading the logo of the Publisher" );
-                 this.dispose();
-            }
+            windowCreator.setIconLabel(logoPublisher, rs.getBytes("imagen"));
             try{
                     Publisher publisher = (Publisher) SessionManager.getCurrentUser();
                     ArrayList<Game> gamesArray = publisher.getAllGames();

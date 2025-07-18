@@ -231,7 +231,7 @@ public class Login extends javax.swing.JPanel {
                     }
                     byte[] imageBytes = rs.getBytes("fotoPerfil");
                     
-                    ImageIcon profilePictureIcon =  (imageBytes != null && imageBytes.length > 0) ? new ImageIcon(imageBytes) : new ImageIcon(Database.getPathDefaultProfileUserImage());
+                    ImageIcon profilePictureIcon =  (imageBytes != null && imageBytes.length > 0) ? new ImageIcon(imageBytes) : null;
                     GlobalUser currUser = new User(
                         rs.getInt("ID"),
                         rs.getString("Email"),

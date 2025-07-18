@@ -47,9 +47,9 @@ public class UserFormat extends javax.swing.JPanel {
         backToLogin = new javax.swing.JButton();
         emailEntry = new javax.swing.JTextField();
         usernameEntry = new javax.swing.JTextField();
-        password1 = new javax.swing.JTextField();
         LblCPassword = new javax.swing.JLabel();
-        password2 = new javax.swing.JTextField();
+        password1 = new javax.swing.JPasswordField();
+        password2 = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         LblIcon = new javax.swing.JLabel();
         LblTitle = new javax.swing.JLabel();
@@ -100,15 +100,10 @@ public class UserFormat extends javax.swing.JPanel {
             }
         });
 
-        password1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        password1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                password1ActionPerformed(evt);
-            }
-        });
-
         LblCPassword.setForeground(new java.awt.Color(255, 255, 255));
         LblCPassword.setText("Confirm your Password");
+
+        password1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         password2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         password2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,8 +120,6 @@ public class UserFormat extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(emailEntry, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(usernameEntry, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(password1)
-                    .addComponent(password2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -141,7 +134,9 @@ public class UserFormat extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(61, 61, 61)
                                 .addComponent(backToLogin)))
-                        .addGap(0, 57, Short.MAX_VALUE)))
+                        .addGap(0, 57, Short.MAX_VALUE))
+                    .addComponent(password2)
+                    .addComponent(password1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -158,11 +153,11 @@ public class UserFormat extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(LblPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(LblCPassword)
+                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LblCPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(createAccount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -186,7 +181,7 @@ public class UserFormat extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
+                .addContainerGap(113, Short.MAX_VALUE)
                 .addComponent(LblTitle)
                 .addGap(21, 21, 21))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,10 +307,6 @@ public class UserFormat extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailEntryActionPerformed
 
-    private void password1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password1ActionPerformed
-
     private void password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_password2ActionPerformed
@@ -333,8 +324,8 @@ public class UserFormat extends javax.swing.JPanel {
     private javax.swing.JTextField emailEntry;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField password1;
-    private javax.swing.JTextField password2;
+    private javax.swing.JPasswordField password1;
+    private javax.swing.JPasswordField password2;
     private javax.swing.JTextField usernameEntry;
     // End of variables declaration//GEN-END:variables
 }

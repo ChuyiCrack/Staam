@@ -62,8 +62,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="emailEntry" alignment="1" max="32767" attributes="0"/>
                       <Component id="usernameEntry" alignment="1" max="32767" attributes="0"/>
-                      <Component id="password1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="password2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -84,6 +82,8 @@
                           </Group>
                           <EmptySpace min="0" pref="57" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="password2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="password1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -103,11 +103,11 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="LblPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="password1" min="-2" pref="33" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="LblCPassword" min="-2" max="-2" attributes="0"/>
+                  <Component id="password1" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="password2" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="LblCPassword" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="password2" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="createAccount" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -199,18 +199,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameEntryActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="password1">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="password1ActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="LblCPassword">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -219,7 +207,16 @@
             <Property name="text" type="java.lang.String" value="Confirm your Password"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="password2">
+        <Component class="javax.swing.JPasswordField" name="password1">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="password2">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

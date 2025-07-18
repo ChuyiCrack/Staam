@@ -4,7 +4,10 @@
  */
 package p.o.o.preliminardesign;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -29,5 +32,11 @@ public class windowCreator {
         window.setVisible(true);
         window.setResizable(false);
         window.setTitle(title);  
+    }
+    
+    public static void setIconLabel(JLabel label , byte[] imageBytes){
+        ImageIcon icon = new ImageIcon(imageBytes);
+        Image image = icon.getImage().getScaledInstance(label.getWidth(),label.getHeight(), Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(image));
     }
 }

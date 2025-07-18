@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * @author chuyi
  */
 public class GamePanel extends JPanel{
-        public GamePanel(Game game) {
+        public GamePanel(JFrame previousWindow,Game game) {
             setLayout(new GridLayout(1, 4, 10, 10)); // vertical layout
             setBorder(BorderFactory.createLineBorder(Color.GRAY));
             //setAlignmentY(TOP_ALIGNMENT);
@@ -35,7 +35,8 @@ public class GamePanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                //Agregar la ventana especifica del Juego
-               
+               infoGame ventanaJuego = new infoGame(previousWindow , game.ID);
+               ventanaJuego.setVisible(true);
             }
         });
             
