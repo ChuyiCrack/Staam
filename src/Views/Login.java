@@ -14,7 +14,6 @@ import p.o.o.preliminardesign.windowCreator;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import p.o.o.preliminardesign.SessionManager;
 import p.o.o.preliminardesign.*;
 
@@ -245,10 +244,9 @@ public class Login extends javax.swing.JPanel {
 
                     SessionManager.login(currUser);
 
-                    JFrame newWIndow = new Tienda();
-                    newWIndow.setVisible(true);
                     Window window = SwingUtilities.getWindowAncestor(this);
                     window.dispose();
+                    windowCreator.openJframeWindow(new Tienda() , "Store");
                 }
                 catch (SQLException e) {
                     e.printStackTrace();

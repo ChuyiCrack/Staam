@@ -395,6 +395,7 @@ public class submitGame extends javax.swing.JFrame {
         price = num.doubleValue(); 
         Ram = (int) ram.getValue();
         diskSpace = random.nextInt(500 , 100000);
+        String requiredOS = OS.getSelectedItem().toString();
         
         if("".equals(Name) || "".equals(Description )  || "".equals(CPU )  || "".equals(GPU )  || this.imageFile == null || this.backgorundImageFile == null){
             JOptionPane.showMessageDialog(null , "You are missing some input" );
@@ -411,9 +412,10 @@ public class submitGame extends javax.swing.JFrame {
                        requirimientoProcesador,
                        requirimientoGrafica,
                        pesoJuego,
-                       fotoBackground
+                       fotoBackground,
+                       sistemaOperativo
                        )
-                       VALUES(?,?,?,?,?,?,?,?,?,?)
+                       VALUES(?,?,?,?,?,?,?,?,?,?,?)
                        """;
         try{
                 Connection conn = Database.getConnection();
@@ -431,6 +433,7 @@ public class submitGame extends javax.swing.JFrame {
                 stmt.setString(8 , GPU);
                 stmt.setInt(9, diskSpace);
                 stmt.setBytes(10,imageBytes2);
+                stmt.setString(11,requiredOS);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null , "The game " + Name + " was created succesfully" );
                 windowCreator.openJframeWindow(new mainViewPublisher(), "Submit a Game");

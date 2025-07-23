@@ -1,6 +1,7 @@
 
 package p.o.o.preliminardesign;
 
+import Views.infoGame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
  */
 public class GamePanel extends JPanel{
         public GamePanel(JFrame previousWindow,Game game) {
-            setLayout(new GridLayout(1, 4, 10, 10)); // vertical layout
+            setLayout(new GridLayout(1, 4, 10, 10)); 
             setBorder(BorderFactory.createLineBorder(Color.GRAY));
             //setAlignmentY(TOP_ALIGNMENT);
             ImageIcon icon = new ImageIcon(game.getImage());
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                //Agregar la ventana especifica del Juego
                infoGame ventanaJuego = new infoGame(previousWindow , game.ID);
+               ventanaJuego.setTitle(game.Name);
                ventanaJuego.setVisible(true);
             }
         });

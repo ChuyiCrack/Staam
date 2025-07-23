@@ -33,4 +33,13 @@ public class Database{
     public static String getPathDefaultProfileUserImage(){
         return Database.pathDefaultProfileUserImage;
     }
+    
+    public static String convertMBtoGB(int MB){
+        if(MB < 1024){
+            return MB + " MB";
+        }
+        double GB =Math.round(((double) MB / 1024) * 100.0) / 100.00;
+        return GB + " GB";
+        
+    }
 }

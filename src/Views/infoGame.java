@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package p.o.o.preliminardesign;
+package Views;
 
 import Views.Tienda;
 import java.awt.BorderLayout;
@@ -24,6 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import p.o.o.preliminardesign.Database;
+import p.o.o.preliminardesign.SessionManager;
+import p.o.o.preliminardesign.User;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
@@ -60,8 +64,8 @@ public class infoGame extends javax.swing.JFrame {
             double gamePrice = rs.getDouble("J.Precio");
             String releaseDateText = rs.getDate("J.FLanzamiento").toString();
             String OS = rs.getString("J.sistemaOperativo");
-            String CPU = rs.getString("J.requirimientoRam") ;
-            String Ram = rs.getString("J.requirimientoProcesador") ;
+            String Ram = rs.getString("J.requirimientoRam") ;
+            String CPU = rs.getString("J.requirimientoProcesador") ;
             String GPU = rs.getString("J.requirimientoGrafica") ;
           
             priceLabel.setText("$"+ gamePrice);
@@ -84,42 +88,57 @@ public class infoGame extends javax.swing.JFrame {
             stmt.setInt(1, SessionManager.getCurrentUser().getID());
             stmt.setInt(2, gameID);
             rs = stmt.executeQuery();
+            stmt = conn.prepareStatement("SELECT * FROM juegosBiblioteca WHERE ID_Juego = ? AND ID_Usuario = ?");
+            stmt.setInt(1, this.gameID);
+            stmt.setInt(2, currUser.getID());
+            ResultSet rs2 = stmt.executeQuery();
             if(rs.next()){
-                JLabel exist = new JLabel("Already in the cart");
+                String labelText =  "Already in the cart";
+                Color coloLabel = Color.green;
+                JLabel exist = new JLabel(labelText);
                 exist.setVerticalAlignment(SwingConstants.CENTER);
                 exist.setForeground(Color.white);
-                boxAddCartButton.setBackground(Color.red);
+                boxAddCartButton.setBackground(coloLabel);
+                boxAddCartButton.add(exist, BorderLayout.CENTER);
+            }
+            else if(rs2.next()){
+                  String labelText =  "In the Library";
+                Color coloLabel = Color.cyan;
+                JLabel exist = new JLabel(labelText);
+                exist.setVerticalAlignment(SwingConstants.CENTER);
+                exist.setForeground(Color.white);
+                boxAddCartButton.setBackground(coloLabel);
                 boxAddCartButton.add(exist, BorderLayout.CENTER);
             }
             else{
-                
-            JButton addCart = new JButton("Add to Cart");
-            
-            addCart.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String query = "INSERT INTO Carrito(ID_Juego , ID_Usuario) VALUES(?, ?)";
 
-                    try {
-                        Connection conn = Database.getConnection();
-                        PreparedStatement stmt = conn.prepareStatement(query);
-                        stmt.setInt(1, gameID);
-                        stmt.setInt(2, SessionManager.getCurrentUser().getID());
-                        stmt.executeUpdate();
-                        stmt.close(); // Good practice to close PreparedStatement
-                    } catch (SQLException ex) {
-                         JOptionPane.showMessageDialog(null , "Error: " + e );
+                JButton addCart = new JButton("Add to Cart");
+
+                addCart.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String query = "INSERT INTO Carrito(ID_Juego , ID_Usuario) VALUES(?, ?)";
+
+                        try {
+                            Connection conn = Database.getConnection();
+                            PreparedStatement stmt = conn.prepareStatement(query);
+                            stmt.setInt(1, gameID);
+                            stmt.setInt(2, SessionManager.getCurrentUser().getID());
+                            stmt.executeUpdate();
+                            stmt.close(); // Good practice to close PreparedStatement
+                        } catch (SQLException ex) {
+                             JOptionPane.showMessageDialog(null , "Error: " + e );
+                        }
+                        Window window = SwingUtilities.getWindowAncestor((Component) e.getSource());
+                        window.dispose();
+                        windowCreator.openJframeWindow(new Tienda(), "Store");
                     }
-                    Window window = SwingUtilities.getWindowAncestor((Component) e.getSource());
-                    window.dispose();
-                    windowCreator.openJframeWindow(new Tienda(), "Store");
+                });
+
+                    boxAddCartButton.add(addCart);
+                    boxAddCartButton.revalidate();
+                    boxAddCartButton.repaint();
                 }
-            });
-            
-                boxAddCartButton.add(addCart);
-                boxAddCartButton.revalidate();
-                boxAddCartButton.repaint();
-            }
        
            
             
@@ -153,14 +172,14 @@ public class infoGame extends javax.swing.JFrame {
         releaseDate = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         recomendedGPU = new javax.swing.JLabel();
-        recomendedCPU = new javax.swing.JLabel();
+        recomendedRAM = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         recomendedOS = new javax.swing.JLabel();
-        recomendedRAM = new javax.swing.JLabel();
+        recomendedCPU = new javax.swing.JLabel();
         getBack = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -207,9 +226,9 @@ public class infoGame extends javax.swing.JFrame {
         recomendedGPU.setForeground(java.awt.Color.white);
         recomendedGPU.setText("jLabel9");
 
-        recomendedCPU.setFont(new java.awt.Font("Adwaita Sans", 1, 18)); // NOI18N
-        recomendedCPU.setForeground(new java.awt.Color(255, 255, 255));
-        recomendedCPU.setText("jLabel9");
+        recomendedRAM.setFont(new java.awt.Font("Adwaita Sans", 1, 18)); // NOI18N
+        recomendedRAM.setForeground(new java.awt.Color(255, 255, 255));
+        recomendedRAM.setText("jLabel9");
 
         jLabel4.setFont(new java.awt.Font("Adwaita Sans", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,9 +254,9 @@ public class infoGame extends javax.swing.JFrame {
         recomendedOS.setForeground(java.awt.Color.white);
         recomendedOS.setText("jLabel9");
 
-        recomendedRAM.setFont(new java.awt.Font("Adwaita Sans", 1, 18)); // NOI18N
-        recomendedRAM.setForeground(java.awt.Color.white);
-        recomendedRAM.setText("jLabel9");
+        recomendedCPU.setFont(new java.awt.Font("Adwaita Sans", 1, 18)); // NOI18N
+        recomendedCPU.setForeground(java.awt.Color.white);
+        recomendedCPU.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,7 +269,7 @@ public class infoGame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(recomendedRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(recomendedCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -258,7 +277,7 @@ public class infoGame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(recomendedCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(recomendedRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -277,14 +296,14 @@ public class infoGame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(recomendedRAM))
+                    .addComponent(recomendedCPU))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(recomendedGPU))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(recomendedCPU)
+                    .addComponent(recomendedRAM)
                     .addComponent(jLabel7))
                 .addGap(10, 10, 10))
         );

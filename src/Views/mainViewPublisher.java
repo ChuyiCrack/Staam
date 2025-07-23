@@ -364,7 +364,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
                 }
                 gameName.setText(rs.getString("Nombre"));
                 gamePrice.setText(String.valueOf(rs.getDouble("Precio")));
-                gameSize.setText(String.valueOf(rs.getInt("pesoJuego")));
+                gameSize.setText(Database.convertMBtoGB(rs.getInt("pesoJuego")));
                 launchDate.setText(rs.getDate("FLanzamiento").toString());
                  byte[] imageBytes = rs.getBytes("fotoPortada");
                  if (imageBytes != null && imageBytes.length > 0) {

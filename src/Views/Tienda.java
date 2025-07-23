@@ -4,7 +4,6 @@
  */
 package Views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -13,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -28,6 +26,7 @@ import p.o.o.preliminardesign.windowCreator;
  * @author chuyi
  */
 public class Tienda extends javax.swing.JFrame {
+    JPanel gamesContainerGlobal; 
     public Tienda() {
         initComponents();
         JPanel gamesContainer = new JPanel();
@@ -37,20 +36,20 @@ public class Tienda extends javax.swing.JFrame {
         profilePicture.setIcon(new ImageIcon(imageProfile));
         userName.setText(currUser.getName());
         userFounds.setText("$"+currUser.getBalance());
-        ArrayList<Game > games = Game.getAllGames();
+        ArrayList<Game > games = Game.getAllGames(filterBy.getSelectedItem().toString() , orderBY.getSelectedItem().toString() ,searchBar.getText());
         for(Game game : games){
             GamePanel gamePanel = new GamePanel(this,game);
             gamesContainer.add(gamePanel);
         }
        gamesContainer.setPreferredSize(new Dimension(500, 150 * games.size()));
-       // Scroll pane
+       this.gamesContainerGlobal = gamesContainer;
        JScrollPane scrollPane = new JScrollPane(gamesContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     // Force the scroll area to a specific height (e.g., 400px)
-        scrollPane.setPreferredSize(new Dimension(450, 300));
+        scrollPane.setPreferredSize(new Dimension(500, 300));
 
         // Add scrollPane to your frame or panel
         gamePanelPlaceholder.setLayout(new GridLayout());
@@ -62,11 +61,13 @@ public class Tienda extends javax.swing.JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem addFunds = new JMenuItem("Add funds");
         JMenuItem openWindowItem2 = new JMenuItem("View my profile");
+         JMenuItem viewLibrary = new JMenuItem("View my Library");
         JMenuItem viewCart = new JMenuItem("View my Cart");
          
 
         popupMenu.add(addFunds);
         popupMenu.add(openWindowItem2);
+        popupMenu.add(viewLibrary);
         popupMenu.add(viewCart);
 
         // Add actions
@@ -82,6 +83,11 @@ public class Tienda extends javax.swing.JFrame {
         viewCart.addActionListener(e -> {
             this.dispose();
             windowCreator.openJframeWindow(new Carrito() , "Cart");
+        });
+        
+        viewLibrary.addActionListener(e -> {
+            this.dispose();
+            windowCreator.openJframeWindow(new Biblioteca() , "Library");
         });
 
         // Add mouse listener to show popup on right-click
@@ -119,12 +125,17 @@ public class Tienda extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        filterBy = new javax.swing.JComboBox<>();
         gamePanelPlaceholder = new javax.swing.JPanel();
         userBox = new javax.swing.JPanel();
         profilePicture = new javax.swing.JLabel();
         userName = new javax.swing.JLabel();
         userFounds = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        searchBar = new javax.swing.JTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        orderBY = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(1, 44, 98));
@@ -134,13 +145,13 @@ public class Tienda extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Filter BY");
+        jLabel2.setText("Search By name");
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Store");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price", "Rating", "Most Populars" }));
+        filterBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price", "Rating", "Most Populars" }));
 
         gamePanelPlaceholder.setBackground(new java.awt.Color(1, 44, 98));
 
@@ -148,11 +159,11 @@ public class Tienda extends javax.swing.JFrame {
         gamePanelPlaceholder.setLayout(gamePanelPlaceholderLayout);
         gamePanelPlaceholderLayout.setHorizontalGroup(
             gamePanelPlaceholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
         gamePanelPlaceholderLayout.setVerticalGroup(
             gamePanelPlaceholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 208, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
 
         userBox.setBackground(new java.awt.Color(1, 36, 66));
@@ -191,25 +202,64 @@ public class Tienda extends javax.swing.JFrame {
             .addComponent(profilePicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel3.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Filter BY");
+
+        searchBar.setBorder(null);
+
+        jToggleButton1.setText("Reload");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        orderBY.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASC", "DESC" }));
+        orderBY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderBYActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Order BY");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(169, 169, 169)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(filterBy, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(orderBY, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jToggleButton1))
+                            .addComponent(searchBar))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,12 +271,20 @@ public class Tienda extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(filterBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                    .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderBY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
                 .addComponent(gamePanelPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,11 +295,28 @@ public class Tienda extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        this.gamesContainerGlobal.removeAll();
+        ArrayList<Game > games = Game.getAllGames(filterBy.getSelectedItem().toString() , orderBY.getSelectedItem().toString() ,searchBar.getText());
+        for(Game game : games){
+            GamePanel gamePanel = new GamePanel(this,game);
+            this.gamesContainerGlobal.add(gamePanel);
+        }
+//        this.revalidate();  // recalculate layout
+//        this.repaint();
+        this.gamesContainerGlobal.revalidate();
+        this.gamesContainerGlobal.repaint();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void orderBYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBYActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderBYActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,12 +355,17 @@ public class Tienda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> filterBy;
     private javax.swing.JPanel gamePanelPlaceholder;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JComboBox<String> orderBY;
     private javax.swing.JLabel profilePicture;
+    private javax.swing.JTextField searchBar;
     private javax.swing.JPanel userBox;
     private javax.swing.JLabel userFounds;
     private javax.swing.JLabel userName;
