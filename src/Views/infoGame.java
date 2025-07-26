@@ -35,6 +35,7 @@ import p.o.o.preliminardesign.windowCreator;
  */
 public class infoGame extends javax.swing.JFrame {
     int gameID;
+    String gameNameGlobal;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(infoGame.class.getName());
 
     /**
@@ -55,12 +56,16 @@ public class infoGame extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             String gameNameString = rs.getString("J.Nombre");
+            this.gameNameGlobal = gameNameString;
             String gameDescriptionString = rs.getString("J.Descripcion");
             
             windowCreator.setIconLabel(coverGame,  rs.getBytes("J.fotoPortada"));
             
             windowCreator.setIconLabel(backgroundImage, rs.getBytes("J.fotoBackground"));
-            
+            String gameReviewString = Database.getGameCalification(gameID);
+            gameReview.setText(gameReviewString);
+            gameReview.setForeground(Database.getColorCalification(gameReviewString));
+
             double gamePrice = rs.getDouble("J.Precio");
             String releaseDateText = rs.getDate("J.FLanzamiento").toString();
             String OS = rs.getString("J.sistemaOperativo");
@@ -168,7 +173,6 @@ public class infoGame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionGame = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         releaseDate = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         recomendedGPU = new javax.swing.JLabel();
@@ -188,6 +192,9 @@ public class infoGame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         priceLabel = new javax.swing.JLabel();
         boxAddCartButton = new javax.swing.JPanel();
+        reviewBox = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        gameReview = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -211,10 +218,6 @@ public class infoGame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Adwaita Sans", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Release Date: ");
-
-        jLabel2.setFont(new java.awt.Font("Adwaita Sans", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Calification : ");
 
         releaseDate.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         releaseDate.setForeground(new java.awt.Color(255, 255, 255));
@@ -398,6 +401,43 @@ public class infoGame extends javax.swing.JFrame {
                 .addComponent(boxAddCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        reviewBox.setBackground(new java.awt.Color(1, 44, 98));
+        reviewBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reviewBoxMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Adwaita Sans", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("People say this game is:");
+
+        gameReview.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
+        gameReview.setForeground(new java.awt.Color(255, 255, 255));
+        gameReview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gameReview.setText("jLabel2");
+
+        javax.swing.GroupLayout reviewBoxLayout = new javax.swing.GroupLayout(reviewBox);
+        reviewBox.setLayout(reviewBoxLayout);
+        reviewBoxLayout.setHorizontalGroup(
+            reviewBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reviewBoxLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(reviewBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gameReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        reviewBoxLayout.setVerticalGroup(
+            reviewBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reviewBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gameReview)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout calificationLabelLayout = new javax.swing.GroupLayout(calificationLabel);
         calificationLabel.setLayout(calificationLabelLayout);
         calificationLabelLayout.setHorizontalGroup(
@@ -415,25 +455,22 @@ public class infoGame extends javax.swing.JFrame {
                                     .addComponent(backgroundImage, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                             .addGroup(calificationLabelLayout.createSequentialGroup()
-                                .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(calificationLabelLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(99, 99, 99)
-                                        .addComponent(jLabel1))
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(reviewBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(calificationLabelLayout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(calificationLabelLayout.createSequentialGroup()
-                                        .addComponent(releaseDate)
-                                        .addGap(86, 86, 86)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(releaseDate)
+                                .addGap(86, 86, 86)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(69, 69, 69))
                     .addGroup(calificationLabelLayout.createSequentialGroup()
                         .addComponent(gameName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(calificationLabelLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))))
         );
         calificationLabelLayout.setVerticalGroup(
             calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,34 +486,33 @@ public class infoGame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(coverGame, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(calificationLabelLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(calificationLabelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(releaseDate))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(calificationLabelLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(reviewBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(calificationLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(calificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(calificationLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(calificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(calificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -486,6 +522,11 @@ public class infoGame extends javax.swing.JFrame {
         this.dispose();
         windowCreator.openJframeWindow(new Tienda() , "Store");
     }//GEN-LAST:event_getBackActionPerformed
+
+    private void reviewBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reviewBoxMouseClicked
+        this.dispose();
+        windowCreator.openJframeWindow(new reviewsGame(this.gameID , this.gameNameGlobal), "Reviews of "+this.gameNameGlobal);
+    }//GEN-LAST:event_reviewBoxMouseClicked
 
     /**
      * @param args the command line arguments
@@ -519,11 +560,12 @@ public class infoGame extends javax.swing.JFrame {
     private javax.swing.JLabel coverGame;
     private javax.swing.JTextPane descriptionGame;
     private javax.swing.JLabel gameName;
+    private javax.swing.JLabel gameReview;
     private javax.swing.JButton getBack;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -540,5 +582,6 @@ public class infoGame extends javax.swing.JFrame {
     private javax.swing.JLabel recomendedOS;
     private javax.swing.JLabel recomendedRAM;
     private javax.swing.JLabel releaseDate;
+    private javax.swing.JPanel reviewBox;
     // End of variables declaration//GEN-END:variables
 }

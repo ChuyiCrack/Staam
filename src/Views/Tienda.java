@@ -63,12 +63,14 @@ public class Tienda extends javax.swing.JFrame {
         JMenuItem openWindowItem2 = new JMenuItem("View my profile");
          JMenuItem viewLibrary = new JMenuItem("View my Library");
         JMenuItem viewCart = new JMenuItem("View my Cart");
+        JMenuItem logOut = new JMenuItem("LogOut");
          
 
         popupMenu.add(addFunds);
         popupMenu.add(openWindowItem2);
         popupMenu.add(viewLibrary);
         popupMenu.add(viewCart);
+        popupMenu.add(logOut);
 
         // Add actions
         addFunds.addActionListener(e -> {
@@ -88,6 +90,12 @@ public class Tienda extends javax.swing.JFrame {
         viewLibrary.addActionListener(e -> {
             this.dispose();
             windowCreator.openJframeWindow(new Biblioteca() , "Library");
+        });
+        
+        logOut.addActionListener(e -> {
+            this.dispose();
+            SessionManager.logout();
+            windowCreator.openWindow("Login", 400, 350, new Login());
         });
 
         // Add mouse listener to show popup on right-click
