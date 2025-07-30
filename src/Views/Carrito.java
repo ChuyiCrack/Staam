@@ -248,7 +248,7 @@ public class Carrito extends javax.swing.JFrame {
                  
             }
              catch (SQLException e) {
-                    e.printStackTrace();
+                     JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
                 }
        
              this.dispose();

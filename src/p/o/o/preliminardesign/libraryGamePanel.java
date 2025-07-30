@@ -1,20 +1,22 @@
 
 package p.o.o.preliminardesign;
 
-import java.awt.Color;
+import Views.GameBInfo;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class libraryGamePanel extends JPanel {
-    public libraryGamePanel (Game game){
+    public libraryGamePanel (Game game , JFrame previousWindow){
          setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(150, 180));
         setMaximumSize(new Dimension(150, 180));
@@ -42,5 +44,13 @@ public class libraryGamePanel extends JPanel {
         add(gameName);
         add(gameImage);
         add(extraInfo);
+      
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                previousWindow.dispose();
+                windowCreator.openJframeWindow(new GameBInfo(game.ID), game.Name);
+            }
+        });
     }
 }

@@ -12,7 +12,10 @@ public class Database{
     private static final String URL = "jdbc:mysql://localhost:3306/Staam";
     private static final String USER = "chuyi";
     private static final String PASSWORD = "chuyito05";
+    
     private static String pathDefaultProfileUserImage = "/home/chuyi/Documents/Java Projects/Staam/src/Media/defaultUser.png";
+    private static final Double downloadSpeed = 2500.00; 
+    private static final int oneSecondsEqualTo = 5; 
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -38,6 +41,13 @@ public class Database{
         return Database.pathDefaultProfileUserImage;
     }
     
+    public static double getDownloadSpeed(){
+        return Database.downloadSpeed;
+    }
+    
+    public static int getOneSecondEqualsTo(){
+        return Database.oneSecondsEqualTo;
+    }
     public static String convertMBtoGB(int MB){
         if(MB < 1024){
             return MB + " MB";
@@ -45,6 +55,32 @@ public class Database{
         double GB =Math.round(((double) MB / 1024) * 100.0) / 100.00;
         return GB + " GB";
         
+    }
+    
+    public static String getTimeLeftDownload(int mbLeft){
+        int SecondsLeft = (int) (mbLeft / Database.getDownloadSpeed());
+        return Database.getTimeLeft(SecondsLeft);
+    }
+    
+    public static String getTimeLeft(int SecondsLeft){
+        if(SecondsLeft  < 60){
+            return SecondsLeft + " s";
+        }
+        int minutesLeft = (SecondsLeft / 60);
+        SecondsLeft = (int)( SecondsLeft % 60);
+        if(minutesLeft  < 60){
+            return minutesLeft + " m, " + (SecondsLeft) + " s";
+        }
+        int Hours = (minutesLeft/60);
+        return Hours + " h , " + (((int) minutesLeft % 60)) + " m ," + SecondsLeft + " s" ;
+    }
+    
+    public static String getTimePlayed(int minutes){
+        if(minutes < 100){
+            return minutes+" minutes";
+        }
+        double hours = (double) minutes / 60;
+        return hours + " hours";
     }
     
     public static String getGameCalification(int idGame){

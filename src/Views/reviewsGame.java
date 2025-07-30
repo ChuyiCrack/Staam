@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.opinionPanel;
+import p.o.o.preliminardesign.windowCreator;
 
 /**
  *
@@ -118,6 +119,12 @@ public class reviewsGame extends javax.swing.JFrame {
         getBack.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         getBack.setForeground(new java.awt.Color(255, 255, 255));
         getBack.setText("Get Back");
+        getBack.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getBackActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(1, 44, 98));
 
@@ -173,7 +180,7 @@ public class reviewsGame extends javax.swing.JFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                                .addGap(82, 82, 82)
                                 .addComponent(getBack))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -186,7 +193,9 @@ public class reviewsGame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(gameName)
-                    .addComponent(getBack, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(getBack)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,6 +220,11 @@ public class reviewsGame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void getBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getBackActionPerformed
+        this.dispose();
+        windowCreator.openJframeWindow(new Tienda() , "Store");
+    }//GEN-LAST:event_getBackActionPerformed
 
     /**
      * @param args the command line arguments

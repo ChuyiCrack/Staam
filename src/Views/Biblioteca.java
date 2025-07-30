@@ -41,9 +41,8 @@ public Biblioteca() {
         searchBar.getText()
     );
 
-   for(int i = 0 ; i < 10 ; i++){
-        for (Game game : games) {
-        libraryGamePanel gamePanel = new libraryGamePanel(game);
+    for (Game game : games) {
+        libraryGamePanel gamePanel = new libraryGamePanel(game,this);
 
         // Wrap in a lightweight FlowLayout panel to prevent stretching
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -51,8 +50,6 @@ public Biblioteca() {
 
         gamesContainer.add(wrapper);
     }
-   
-   }
    this.gamesContainer = gamesContainer;
     // Wrap the game container in a scroll pane
     JScrollPane scrollPane = new JScrollPane(gamesContainer);
@@ -273,7 +270,7 @@ public Biblioteca() {
             );
         
         for (Game game : games) {
-            libraryGamePanel gamePanel = new libraryGamePanel(game);
+            libraryGamePanel gamePanel = new libraryGamePanel(game,this);
 
             // Wrap in a lightweight FlowLayout panel to prevent stretching
             JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));

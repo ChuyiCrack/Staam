@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +38,7 @@ public class infoGame extends javax.swing.JFrame {
 
     /**
      * Creates new form infoGame
+     * @param previousWindow
      * @param gameID
      */
     public infoGame(JFrame previousWindow,int gameID) {
@@ -58,8 +57,8 @@ public class infoGame extends javax.swing.JFrame {
             String gameNameString = rs.getString("J.Nombre");
             this.gameNameGlobal = gameNameString;
             String gameDescriptionString = rs.getString("J.Descripcion");
-            
-            windowCreator.setIconLabel(coverGame,  rs.getBytes("J.fotoPortada"));
+            byte[] fotoPortada =  rs.getBytes("J.fotoPortada");
+            windowCreator.setIconLabel(coverGame, fotoPortada);
             
             windowCreator.setIconLabel(backgroundImage, rs.getBytes("J.fotoBackground"));
             String gameReviewString = Database.getGameCalification(gameID);
