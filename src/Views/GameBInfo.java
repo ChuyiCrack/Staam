@@ -33,13 +33,15 @@ public class GameBInfo extends javax.swing.JFrame {
      * @param idGame
      */
     private boolean shouldOpenNextWindow = true;
-    
+    int idGame;
+    String gameNameGlobal;
     public void doNotOpenNextWIndow(){
         this.shouldOpenNextWindow = false;
     }
     
     public GameBInfo(int idGame){
         initComponents();
+        this.idGame = idGame;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          addWindowListener(new WindowAdapter() {
             @Override
@@ -59,6 +61,7 @@ public class GameBInfo extends javax.swing.JFrame {
              ResultSet rs = stmt.executeQuery();
              rs.next();
              String gameName = rs.getString("J.Nombre");
+             this.gameNameGlobal = gameName;
              windowCreator.setIconLabel(LblPortrait, rs.getBytes("J.fotoBackground"));
              timePlayed.setText("Mssing");
              sizeGame.setText(Database.convertMBtoGB(rs.getInt("J.pesoJuego")));
@@ -111,6 +114,7 @@ public class GameBInfo extends javax.swing.JFrame {
 
                     }
                 });
+                settingsPanel.setVisible(false);
             }
             
             buttonPanel.revalidate();
@@ -164,11 +168,9 @@ public class GameBInfo extends javax.swing.JFrame {
         PnlGlobal = new javax.swing.JPanel();
         PnlInfo = new javax.swing.JPanel();
         LblInfo = new javax.swing.JLabel();
-        BtnFav = new javax.swing.JButton();
         LblUpdates = new javax.swing.JLabel();
         PnlFriends = new javax.swing.JPanel();
         LblFriens = new javax.swing.JLabel();
-        BtnInfo = new javax.swing.JButton();
         LblFrindBar = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         LblPlaTime = new javax.swing.JLabel();
@@ -180,6 +182,10 @@ public class GameBInfo extends javax.swing.JFrame {
         LblPlaTime3 = new javax.swing.JLabel();
         timePlayed = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
+        settingsPanel = new javax.swing.JPanel();
+        uninstallButton = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         LblPortrait = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -207,14 +213,6 @@ public class GameBInfo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        BtnFav.setBackground(new java.awt.Color(102, 102, 102));
-        BtnFav.setText("Favorite");
-        BtnFav.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnFavActionPerformed(evt);
-            }
-        });
-
         LblUpdates.setText("Inserte aqui las updates*");
         LblUpdates.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
@@ -239,9 +237,6 @@ public class GameBInfo extends javax.swing.JFrame {
                 .addComponent(LblFriens, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        BtnInfo.setBackground(new java.awt.Color(102, 102, 102));
-        BtnInfo.setText("Info");
 
         LblFrindBar.setBackground(new java.awt.Color(102, 102, 102));
         LblFrindBar.setText("Friends With This Game");
@@ -319,7 +314,7 @@ public class GameBInfo extends javax.swing.JFrame {
         lastTimePanel.setLayout(lastTimePanelLayout);
         lastTimePanelLayout.setHorizontalGroup(
             lastTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LblPlaTime3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(LblPlaTime3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
             .addGroup(lastTimePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(timePlayed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -328,9 +323,9 @@ public class GameBInfo extends javax.swing.JFrame {
             lastTimePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lastTimePanelLayout.createSequentialGroup()
                 .addComponent(LblPlaTime3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(timePlayed)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -345,6 +340,51 @@ public class GameBInfo extends javax.swing.JFrame {
         buttonPanelLayout.setVerticalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 48, Short.MAX_VALUE)
+        );
+
+        settingsPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        uninstallButton.setBackground(new java.awt.Color(255, 51, 51));
+        uninstallButton.setForeground(new java.awt.Color(255, 255, 255));
+        uninstallButton.setText("Uninstall");
+        uninstallButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uninstallButtonActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Adwaita Sans", 1, 13)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beta" }));
+
+        jLabel1.setFont(new java.awt.Font("Adwaita Sans", 1, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Game Version");
+
+        javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
+        settingsPanel.setLayout(settingsPanelLayout);
+        settingsPanelLayout.setHorizontalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(uninstallButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, 120, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        settingsPanelLayout.setVerticalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uninstallButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PnlGlobalLayout = new javax.swing.GroupLayout(PnlGlobal);
@@ -365,35 +405,30 @@ public class GameBInfo extends javax.swing.JFrame {
                     .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(LblUpdates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PnlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(20, 20, 20)
                 .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PnlFriends, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PnlGlobalLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(BtnInfo)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnFav)
-                        .addContainerGap())
-                    .addComponent(LblFrindBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20)
+                        .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PnlFriends, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LblFrindBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlGlobalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(settingsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
         );
         PnlGlobalLayout.setVerticalGroup(
             PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlGlobalLayout.createSequentialGroup()
                 .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlGlobalLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnFav)
-                            .addComponent(BtnInfo))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlGlobalLayout.createSequentialGroup()
-                        .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(sesionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lastTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)))
+                            .addComponent(sesionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastTimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(settingsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
                 .addGroup(PnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlGlobalLayout.createSequentialGroup()
                         .addComponent(LblFrindBar)
@@ -425,9 +460,22 @@ public class GameBInfo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnFavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFavActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnFavActionPerformed
+    private void uninstallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uninstallButtonActionPerformed
+        String query = "UPDATE juegosBiblioteca SET instalado = FALSE WHERE ID_Juego = ? AND ID_Usuario = ?";
+        try{
+            Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setInt(1, this.idGame);
+             stmt.setInt(2, SessionManager.getCurrentUser().getID());
+            stmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+         }
+        this.doNotOpenNextWIndow();
+        this.dispose();
+         windowCreator.openJframeWindow(new GameBInfo(this.idGame), this.gameNameGlobal);
+    }//GEN-LAST:event_uninstallButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,14 +514,11 @@ public class GameBInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnFav;
-    private javax.swing.JButton BtnInfo;
     private javax.swing.JLabel LblFriens;
     private javax.swing.JLabel LblFrindBar;
     private javax.swing.JLabel LblInfo;
     private javax.swing.JLabel LblPlaTime;
     private javax.swing.JLabel LblPlaTime1;
-    private javax.swing.JLabel LblPlaTime2;
     private javax.swing.JLabel LblPlaTime3;
     private javax.swing.JLabel LblPortrait;
     private javax.swing.JLabel LblUpdates;
@@ -481,13 +526,15 @@ public class GameBInfo extends javax.swing.JFrame {
     private javax.swing.JPanel PnlGlobal;
     private javax.swing.JPanel PnlInfo;
     private javax.swing.JPanel buttonPanel;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lastSession;
     private javax.swing.JPanel lastTimePanel;
     private javax.swing.JPanel sesionPanel;
+    private javax.swing.JPanel settingsPanel;
     private javax.swing.JLabel sizeGame;
     private javax.swing.JLabel timePlayed;
+    private javax.swing.JButton uninstallButton;
     // End of variables declaration//GEN-END:variables
 }

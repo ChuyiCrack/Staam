@@ -316,8 +316,6 @@ public class Tienda extends javax.swing.JFrame {
             GamePanel gamePanel = new GamePanel(this,game);
             this.gamesContainerGlobal.add(gamePanel);
         }
-//        this.revalidate();  // recalculate layout
-//        this.repaint();
         this.gamesContainerGlobal.revalidate();
         this.gamesContainerGlobal.repaint();
     }//GEN-LAST:event_jToggleButton1ActionPerformed

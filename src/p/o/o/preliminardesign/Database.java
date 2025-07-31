@@ -15,7 +15,7 @@ public class Database{
     
     private static String pathDefaultProfileUserImage = "/home/chuyi/Documents/Java Projects/Staam/src/Media/defaultUser.png";
     private static final Double downloadSpeed = 2500.00; 
-    private static final int oneSecondsEqualTo = 5; 
+    private static final int oneSecondsEqualTo = 250; 
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

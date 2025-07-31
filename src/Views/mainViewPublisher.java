@@ -48,9 +48,6 @@ public class mainViewPublisher extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null , "Error : " + e );
                         this.dispose();
               }
-            
-            
-            
         }
         catch (SQLException e) {
              e.printStackTrace();
@@ -380,8 +377,9 @@ public class mainViewPublisher extends javax.swing.JFrame {
                          this.dispose();
                          return;
                 }
+                double Price = rs.getDouble("Precio");
                 gameName.setText(rs.getString("Nombre"));
-                gamePrice.setText(String.valueOf(rs.getDouble("Precio")));
+                gamePrice.setText(String.valueOf(Price));
                 gameSize.setText(Database.convertMBtoGB(rs.getInt("pesoJuego")));
                 launchDate.setText(rs.getDate("FLanzamiento").toString());
                  byte[] imageBytes = rs.getBytes("fotoPortada");
@@ -394,6 +392,20 @@ public class mainViewPublisher extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null , "Error loading the logo of the Publisher" );
                  this.dispose();
             }
+                 stmt = conn.prepareStatement("SELECT copiasVendidas(?) as copiasVendidas;");
+                 stmt.setInt(1,idGame);
+                 rs = stmt.executeQuery();
+                 rs.next();
+                 int gameSold = rs.getInt("copiasVendidas");
+                 GamesSold.setText(gameSold+"");
+                 Earnings.setText("$"+(gameSold*Price));
+                 
+                 stmt = conn.prepareStatement("SELECT jugadoresUltimos7DIas(?) as Jugadores;");
+                 stmt.setInt(1,idGame);
+                 rs = stmt.executeQuery();
+                 rs.next();
+                 lastPlayers.setText(rs.getInt("Jugadores")+"");
+                 
                 
             }
              catch (SQLException e) {
