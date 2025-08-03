@@ -24,6 +24,7 @@ import p.o.o.preliminardesign.windowCreator;
  */
 public class submitGame extends javax.swing.JFrame {
     File imageFile = null;
+    File backgorundImageFile = null;
     Random random = new Random();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(submitGame.class.getName());
 
@@ -44,6 +45,7 @@ public class submitGame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -56,7 +58,7 @@ public class submitGame extends javax.swing.JFrame {
         selectedCover = new javax.swing.JFileChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        coverPreview = new javax.swing.JLabel();
+        backgroundPreview = new javax.swing.JLabel();
         submitGame = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -69,6 +71,10 @@ public class submitGame extends javax.swing.JFrame {
         gpu = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
+        coverPreview = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        coverButton = new javax.swing.JRadioButton();
+        backgroundButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,13 +115,13 @@ public class submitGame extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Adwaita Sans", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Cover:");
+        jLabel5.setText("Select a File");
 
         jLabel11.setFont(new java.awt.Font("Adwaita Mono", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Cover Preview");
 
-        coverPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        backgroundPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
 
         submitGame.setFont(new java.awt.Font("Adwaita Sans", 0, 24)); // NOI18N
         submitGame.setText("Submit Game");
@@ -215,6 +221,33 @@ public class submitGame extends javax.swing.JFrame {
             }
         });
 
+        coverPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+
+        jLabel12.setFont(new java.awt.Font("Adwaita Mono", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Background Preview");
+
+        coverButton.setBackground(new java.awt.Color(1, 44, 98));
+        buttonGroup.add(coverButton);
+        coverButton.setForeground(new java.awt.Color(255, 255, 255));
+        coverButton.setSelected(true);
+        coverButton.setText("Cover");
+        coverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coverButtonActionPerformed(evt);
+            }
+        });
+
+        backgroundButton.setBackground(new java.awt.Color(1, 44, 98));
+        buttonGroup.add(backgroundButton);
+        backgroundButton.setForeground(new java.awt.Color(255, 255, 255));
+        backgroundButton.setText("Background");
+        backgroundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backgroundButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -222,7 +255,7 @@ public class submitGame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(296, 296, 296)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -249,23 +282,30 @@ public class submitGame extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel5)
+                        .addGap(249, 249, 249)
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(selectedCover, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                        .addComponent(jLabel12)
+                        .addGap(175, 175, 175))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(submitGame)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backgroundButton)
+                                    .addComponent(coverButton)
+                                    .addComponent(jLabel5))
+                                .addGap(43, 43, 43)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(submitGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(62, 62, 62)))
-                        .addComponent(coverPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73))))
+                                .addComponent(coverPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(backgroundPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(selectedCover, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 27, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,24 +319,10 @@ public class submitGame extends javax.swing.JFrame {
                         .addComponent(cancel)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(selectedCover, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel11)
-                                .addGap(37, 37, 37)
-                                .addComponent(submitGame, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coverPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(53, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,7 +333,30 @@ public class submitGame extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(coverButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(backgroundButton)
+                                .addGap(241, 241, 241)
+                                .addComponent(submitGame, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(selectedCover, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backgroundPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(coverPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(58, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,7 +369,7 @@ public class submitGame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -346,8 +395,9 @@ public class submitGame extends javax.swing.JFrame {
         price = num.doubleValue(); 
         Ram = (int) ram.getValue();
         diskSpace = random.nextInt(500 , 100000);
+        String requiredOS = OS.getSelectedItem().toString();
         
-        if("".equals(Name) || "".equals(Description )  || "".equals(CPU )  || "".equals(GPU )  || this.imageFile == null){
+        if("".equals(Name) || "".equals(Description )  || "".equals(CPU )  || "".equals(GPU )  || this.imageFile == null || this.backgorundImageFile == null){
             JOptionPane.showMessageDialog(null , "You are missing some input" );
             return;
         }
@@ -361,24 +411,29 @@ public class submitGame extends javax.swing.JFrame {
                        requirimientoRam,
                        requirimientoProcesador,
                        requirimientoGrafica,
-                       pesoJuego
+                       pesoJuego,
+                       fotoBackground,
+                       sistemaOperativo
                        )
-                       VALUES(?,?,?,?,?,?,?,?,?)
+                       VALUES(?,?,?,?,?,?,?,?,?,?,?)
                        """;
         try{
                 Connection conn = Database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query );
-                byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+                byte[] imageBytes1 = Files.readAllBytes(imageFile.toPath());
+                byte[] imageBytes2 = Files.readAllBytes(backgorundImageFile.toPath());
                 stmt.setString(1 , Name);
                 stmt.setDouble(2 , price);
                 SessionManager.getCurrentUser().getID();
                 stmt.setString(3 , Description );
                 stmt.setInt(4 , SessionManager.getCurrentUser().getID());
-                stmt.setBytes(5 ,imageBytes);
-                stmt.setInt(6 , Ram);
+                stmt.setBytes(5 ,imageBytes1);
+                stmt.setInt(6 , Ram); 
                 stmt.setString(7 , CPU);
                 stmt.setString(8 , GPU);
-                stmt.setInt(9, diskSpace );
+                stmt.setInt(9, diskSpace);
+                stmt.setBytes(10,imageBytes2);
+                stmt.setString(11,requiredOS);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null , "The game " + Name + " was created succesfully" );
                 windowCreator.openJframeWindow(new mainViewPublisher(), "Submit a Game");
@@ -392,12 +447,22 @@ public class submitGame extends javax.swing.JFrame {
     }//GEN-LAST:event_submitGameActionPerformed
 
     private void selectedCoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedCoverActionPerformed
+         Image image;
         File file = selectedCover.getSelectedFile();
-        this.imageFile = file;
         String imagePath = file.getAbsolutePath();
         ImageIcon logoPublisherIcon = new ImageIcon(imagePath);
-        Image image = logoPublisherIcon.getImage().getScaledInstance(coverPreview.getWidth(), coverPreview.getHeight(), Image.SCALE_SMOOTH);
-        coverPreview.setIcon(new ImageIcon(image));
+        if(coverButton.isSelected()){
+            this.imageFile = file;
+            image = logoPublisherIcon.getImage().getScaledInstance(coverPreview.getWidth(), coverPreview.getHeight(), Image.SCALE_SMOOTH);
+            coverPreview.setIcon(new ImageIcon(image));
+        }
+        else{
+            this.backgorundImageFile = file;
+            image = logoPublisherIcon.getImage().getScaledInstance(backgroundPreview.getWidth(), backgroundPreview.getHeight(), Image.SCALE_SMOOTH);
+            backgroundPreview.setIcon(new ImageIcon(image));
+        }
+        
+        
     }//GEN-LAST:event_selectedCoverActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -405,6 +470,14 @@ public class submitGame extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void coverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coverButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_coverButtonActionPerformed
+
+    private void backgroundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backgroundButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,7 +506,11 @@ public class submitGame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> OS;
+    private javax.swing.JRadioButton backgroundButton;
+    private javax.swing.JLabel backgroundPreview;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton cancel;
+    private javax.swing.JRadioButton coverButton;
     private javax.swing.JLabel coverPreview;
     private javax.swing.JTextField cpu;
     private javax.swing.JTextArea gameDescription;
@@ -443,6 +520,7 @@ public class submitGame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

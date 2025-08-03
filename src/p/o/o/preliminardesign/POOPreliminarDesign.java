@@ -1,5 +1,6 @@
 package p.o.o.preliminardesign;
-import Views.*;
+import Views.Login;
+import p.o.o.preliminardesign.windowCreator;
 
 
 
