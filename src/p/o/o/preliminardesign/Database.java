@@ -13,7 +13,6 @@ public class Database{
     private static final String USER = "chuyi";
     private static final String PASSWORD = "chuyito05";
     
-    private static String pathDefaultProfileUserImage = "/home/chuyi/Documents/Java Projects/Staam/src/Media/defaultUser.png";
     private static final Double downloadSpeed = 2500.00; 
     private static final int oneSecondsEqualTo = 250; 
 
@@ -37,8 +36,10 @@ public class Database{
     public static boolean checkValidUsername(String user){
         return (!(user.contains("@") || user.contains(".")));
         }
-    public static String getPathDefaultProfileUserImage(){
-        return Database.pathDefaultProfileUserImage;
+    
+    public static String[] validMediaExtensions(){
+        String[] supportedExtensions = {".png", ".jpg", ".jpeg", ".gif", ".bmp"};
+        return supportedExtensions;
     }
     
     public static double getDownloadSpeed(){
@@ -79,8 +80,11 @@ public class Database{
         if(minutes < 100){
             return minutes+" minutes";
         }
-        double hours = (double) minutes / 60;
-        return hours + " hours";
+        //double rounded = Math.round(number * 100.0) / 100.0;
+        double hours =  (double) minutes / 60;
+        System.out.println(hours);
+        double hoursRounded = Math.round(hours * 100.0) / 100.0;
+        return hoursRounded + " hours";
     }
     
     public static String getGameCalification(int idGame){

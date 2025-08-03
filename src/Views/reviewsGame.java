@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,7 +58,7 @@ public class reviewsGame extends javax.swing.JFrame {
                 boolean liked = rs.getBoolean("RJ.Cali");
                 byte[] profilePicture = rs.getBytes("U.fotoPerfil");
                 if(profilePicture == null){
-                    File imageFile = new File(Database.getPathDefaultProfileUserImage());
+                    File imageFile = new File(reviewsGame.class.getResource("/Media/defaultUser.png").toURI());
                     profilePicture = Files.readAllBytes(imageFile.toPath());
                 }
                 opinionPanel oP = new opinionPanel(userName,liked,Opinion,profilePicture);
@@ -83,7 +84,9 @@ public class reviewsGame extends javax.swing.JFrame {
         }
         catch (IOException ex) {
                         System.getLogger(reviewsGame.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                    }
+                    } catch (URISyntaxException ex) {
+            System.getLogger(reviewsGame.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
     
     public reviewsGame() {

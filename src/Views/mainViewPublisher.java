@@ -3,13 +3,17 @@ package Views;
 
 import java.awt.Image;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import p.o.o.preliminardesign.Database;
 import p.o.o.preliminardesign.Game;
@@ -19,7 +23,8 @@ import p.o.o.preliminardesign.windowCreator;
 
 public class mainViewPublisher extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(mainViewPublisher.class.getName());
-
+    String currGameName;
+    int currIdGame;
     /**
      * Creates new form mainViewPublisher
      */
@@ -27,6 +32,29 @@ public class mainViewPublisher extends javax.swing.JFrame {
         initComponents();
         publisherName.setText(SessionManager.getCurrentUser().getName());
         insidePanel.setVisible(false);
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem seeMore = new JMenuItem("Submit Update");
+        popupMenu.add(seeMore);
+        
+        insidePanel.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.isPopupTrigger()) {
+                popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            System.out.println("Released at: " + e.getPoint());
+            if (e.isPopupTrigger()) {
+                System.out.println("PopupTrigger on release");
+                popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
+    });
+        
         String query = "SELECT * FROM Publisher WHERE ID = ?";
         try{
             Connection conn = Database.getConnection();
@@ -52,6 +80,11 @@ public class mainViewPublisher extends javax.swing.JFrame {
         catch (SQLException e) {
              e.printStackTrace();
          }
+        seeMore.addActionListener(e -> {
+            this.dispose();
+            windowCreator.openJframeWindow(new createUpdate(this.currIdGame), this.currGameName);
+        });
+        
     }
 
     /**
@@ -70,7 +103,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
         submitGame = new javax.swing.JButton();
         myGames = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        mainPanelDashboard = new javax.swing.JPanel();
         insidePanel = new javax.swing.JPanel();
         gamePrice = new javax.swing.JLabel();
         gameSize = new javax.swing.JLabel();
@@ -123,7 +156,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("My Games");
 
-        jPanel2.setBackground(new java.awt.Color(12, 83, 173));
+        mainPanelDashboard.setBackground(new java.awt.Color(12, 83, 173));
 
         insidePanel.setBackground(new java.awt.Color(12, 83, 173));
 
@@ -263,14 +296,14 @@ public class mainViewPublisher extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mainPanelDashboardLayout = new javax.swing.GroupLayout(mainPanelDashboard);
+        mainPanelDashboard.setLayout(mainPanelDashboardLayout);
+        mainPanelDashboardLayout.setHorizontalGroup(
+            mainPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(insidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mainPanelDashboardLayout.setVerticalGroup(
+            mainPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(insidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -310,7 +343,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jLabel1))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(mainPanelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +368,7 @@ public class mainViewPublisher extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel1)
                         .addGap(12, 12, 12)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(mainPanelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(66, 66, 66))
         );
 
@@ -365,7 +398,10 @@ public class mainViewPublisher extends javax.swing.JFrame {
             }
         else{
             insidePanel.setVisible(true);
+            insidePanel.revalidate();
+            insidePanel.repaint();
             int idGame = Integer.parseInt(Selected.split("-")[0]);
+            this.currIdGame = idGame;
             String query = "SELECT  * FROM Juegos WHERE ID_JUEGOS = ?";
             try{
                 Connection conn = Database.getConnection();
@@ -378,7 +414,8 @@ public class mainViewPublisher extends javax.swing.JFrame {
                          return;
                 }
                 double Price = rs.getDouble("Precio");
-                gameName.setText(rs.getString("Nombre"));
+                this.currGameName = rs.getString("Nombre");
+                gameName.setText(this.currGameName);
                 gamePrice.setText(String.valueOf(Price));
                 gameSize.setText(Database.convertMBtoGB(rs.getInt("pesoJuego")));
                 launchDate.setText(rs.getDate("FLanzamiento").toString());
@@ -463,11 +500,11 @@ public class mainViewPublisher extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lastPlayers;
     private javax.swing.JLabel launchDate;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel logoPublisher;
+    private javax.swing.JPanel mainPanelDashboard;
     private javax.swing.JComboBox<String> myGames;
     private javax.swing.JLabel publisherName;
     private javax.swing.JButton submitGame;

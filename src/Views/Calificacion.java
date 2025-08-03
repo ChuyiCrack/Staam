@@ -23,22 +23,39 @@ import p.o.o.preliminardesign.windowCreator;
  */
 public class Calificacion extends javax.swing.JFrame {
     int idGame;
-    public Calificacion(int idGame) {
+    String gameName;
+    boolean alreadyReview;
+    public Calificacion(int idGame , boolean alreadyReview) { // alreadyReview: -1 -> si no se ha hecho una review , otro numero -> si ya se hizo una y se va a editar
         initComponents();
         this.idGame = idGame;
-        JRadioButton btnSi = new JRadioButton("Sí");
-        JRadioButton btnNo = new JRadioButton("No");
-        ButtonGroup grupo = new ButtonGroup();
-        grupo.add(btnSi);
-        grupo.add(btnNo);
+        this.alreadyReview = alreadyReview;
         String query = "SELECT * FROM Juegos WHERE ID_Juegos = ?";
         try{
+            
+            
              Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              stmt.setInt(1, idGame);
              ResultSet rs = stmt.executeQuery();
              rs.next();
              windowCreator.setIconLabel(gameIcon, rs.getBytes("fotoPortada"));
+             this.gameName = rs.getString("Nombre");
+             if(this.alreadyReview){
+                 stmt = conn.prepareStatement("SELECT * FROM ResJuegos WHERE ID_Juego = ? AND ID_Usuario = ?");
+                 stmt.setInt(1, idGame);
+                 stmt.setInt(2, SessionManager.getCurrentUser().getID());
+                 rs = stmt.executeQuery();
+                 rs.next();
+                 boolean cali = rs.getBoolean("Cali");
+                 String texto = rs.getString("Comentario");
+                 if(cali){
+                    RBSi.setSelected(true);
+                 }
+                 else{
+                     RBNo.setSelected(true);
+                 }
+                 jTextArea1.setText(texto);
+             }
 
         }
         catch (SQLException e) {
@@ -210,14 +227,16 @@ public class Calificacion extends javax.swing.JFrame {
         }
         try {
             java.sql.Connection conn = Database.getConnection();
-            String sqlTexto = "INSERT INTO  ResJuegos (Cali, Comentario, ID_Usuario,ID_Juego) VALUES (?, ?, ?,?)";
+            String sqlTexto = !this.alreadyReview ? "INSERT INTO  ResJuegos (Cali, Comentario, ID_Usuario,ID_Juego) VALUES (?, ?, ?,?)":"UPDATE ResJuegos SET Cali = ? , Comentario =? WHERE ID_Usuario = ? AND ID_Juego = ?;";
             PreparedStatement stmt = conn.prepareStatement(sqlTexto);
             stmt.setBoolean(1, seleccion);
             stmt.setString(2, texto);
             stmt.setInt(3,SessionManager.getCurrentUser().getID());
-             stmt.setInt(4,this.idGame);
+            stmt.setInt(4,this.idGame);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Reseña subida");
+            this.dispose();
+            windowCreator.openJframeWindow(new GameBInfo(this.idGame) , this.gameName);
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null,"Eror: "+ex);
         }

@@ -23,7 +23,7 @@ public class User extends GlobalUser{
         return this.Telefono;
     } 
     public ImageIcon getProfilePicture(){
-                return (this.profilePicture != null) ? this.profilePicture : new ImageIcon(Database.getPathDefaultProfileUserImage());
+                return (this.profilePicture != null) ? this.profilePicture : new ImageIcon(User.class.getResource("/Media/defaultUser.png"));
     }
     
     public void setBalance(double balance){
