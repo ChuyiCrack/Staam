@@ -1,6 +1,4 @@
-
 package p.o.o.preliminardesign;
-
 
 public class SessionManager {
    private static GlobalUser currentUser = null;

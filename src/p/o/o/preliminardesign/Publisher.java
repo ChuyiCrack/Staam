@@ -16,9 +16,6 @@ public class Publisher extends GlobalUser{
         this.Descripcion = Descripcion;
     }
     
-    public String getDescripcion(){
-        return this.Descripcion;
-    }
     
     public ArrayList<Game> getAllGames() {
         ArrayList<Game> gameList = new ArrayList<>();
@@ -43,5 +40,8 @@ public class Publisher extends GlobalUser{
         }
 
         return gameList;
+    }
+    public String getDescripcion(){
+        return this.Descripcion;
     }
 }
